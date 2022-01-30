@@ -1,6 +1,10 @@
 .input {
     margin:10px;
+    transition: 200ms ease-in-out;
+}
 
+.input:hover {
+    transform: scale(1,1);
 }
 
 .input-div {
