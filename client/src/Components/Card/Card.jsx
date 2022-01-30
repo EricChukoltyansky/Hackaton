@@ -1,8 +1,49 @@
 import React from "react";
 import "./Card.css";
 import Button from "../../Utils/Button";
+import { useState } from "react";
 
 function Card({ nameCard }) {
+  const textLength = 150;
+
+  const [showFull, setShowFull] = useState(false);
+
+  const renderMeaning = () => {
+    if (nameCard.meaning.length > textLength) {
+      switch (showFull) {
+        case true:
+          return (
+            <div className="meaning">
+              {nameCard.meaning}
+              &nbsp; &nbsp;{" "}
+              <button
+                className="link-button"
+                onClick={() => setShowFull(false)}
+              >
+                לראות פחות{" "}
+              </button>{" "}
+            </div>
+          );
+
+        case false:
+          return (
+            <div className="meaning">
+              {nameCard.meaning.slice(0, textLength)}
+              &nbsp; &nbsp;{" "}
+              <button className="link-button" onClick={() => setShowFull(true)}>
+                להמשך קריאה
+              </button>
+            </div>
+          );
+
+        default:
+          return <div className="meaning">{nameCard.meaning}</div>;
+      }
+    } else {
+      return <div className="meaning">{nameCard.meaning}</div>;
+    }
+  };
+
   const genderIcon = () => {
     if (nameCard.genderFemale) {
       if (nameCard.genderMale) {
@@ -26,7 +67,7 @@ function Card({ nameCard }) {
       <div className="head-flex">
         <h3> {nameCard.name}</h3>
         <h3> {nameCard.englishSpelling}</h3>
-        {/* <h3> اسم {nameCard.arabSpelling}</h3> */}
+        <h3> اسم {nameCard.arabSpelling}</h3>
       </div>
 
       <div className="detailsContainer">
@@ -41,7 +82,7 @@ function Card({ nameCard }) {
           ></Button>
         </div>
 
-        <div className="meaning">{nameCard.meaning}</div>
+        <>{renderMeaning()}</>
         <div>{genderIcon()}</div>
         <div className="origin">
           <span style={{ fontWeight: "bold" }}>מקור: </span>
