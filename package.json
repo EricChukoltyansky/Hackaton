@@ -1,0 +1,20 @@
+{
+    "name": "hackaton",
+    "version": "1.0.0",
+    "description": "Bootcamp Hackaton January 2022",
+    "main": "index.js",
+    "scripts": {
+        "server": "node server/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/EricChukoltyansky/Hackaton.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/EricChukoltyansky/Hackaton/issues"
+    },
+    "homepage": "https://github.com/EricChukoltyansky/Hackaton#readme"
+}
