@@ -4,6 +4,9 @@ import Button from "../../Utils/Button";
 import RadioButtons from "./RadioButtons";
 import './SearchForm.css'
 import names from "../../Api/mockData";
+import myApi from '../../Api/Api';
+import {motion} from "framer-motion";
+import {searchFormVariants} from "../../Utils/animations/animations";
 
 
 export default function SearchForm({setResults}) {
@@ -11,23 +14,35 @@ export default function SearchForm({setResults}) {
     const [gender,setGender] = useState([true,false]);
 
     const searchByMeaning = async () => {
+        try {
         console.log("in search by meaning");
         //const data = fetch
         setResults(names);
         setSearchTerm("");
+        } catch(e) {
+            console.log(e.message)
+        }
     }
     const searchByName = async () => {
-        console.log("in search by name");
-        // const data = fetch
-        //setResults(data)
-        setSearchTerm("");
+        try {
+            console.log("in search by name");
+            // const data = fetch
+            //setResults(data)
+            setSearchTerm("");
+        }catch(e) {
+            console.log(e.message)
+        }
     }
 
     const getRandomName = async () => {
-        console.log("in get random name");
-        // const data = fetch
-        //setResults(data)
-        setSearchTerm("");
+        try {
+            console.log("in get random name");
+            // const data = fetch
+            //setResults(data)
+            setSearchTerm("");
+        }catch(e) {
+
+        }
     }
 
     const handleChange = (e) => {
@@ -40,7 +55,11 @@ export default function SearchForm({setResults}) {
       }
 
     return(
-        <div className='search-div'>
+        <motion.div className='search-div'
+        variant={searchFormVariants}
+        initial='hidden'
+        animate='visible'
+        >
             {/*<div className="search-title">*/}
             {/*    <h2>חיפוש שם</h2>*/}
             {/*</div>*/}
@@ -58,7 +77,6 @@ export default function SearchForm({setResults}) {
                         <Button className={'search-button'} name={'חיפוש שם'} 
                         callback={searchByName}/>
                        </div>
-
                </div>
                <div className='random-div'>
                    <Button className={'search-button random-button'} name={'שם אקראי'} 
@@ -67,6 +85,6 @@ export default function SearchForm({setResults}) {
            </div>
 
 
-        </div>
+        </motion.div>
     )
 }
