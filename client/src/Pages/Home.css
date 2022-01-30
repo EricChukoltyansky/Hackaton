@@ -5,3 +5,15 @@
     align-items: center;
     flex-direction: column;
 }
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap:10px;
+}
