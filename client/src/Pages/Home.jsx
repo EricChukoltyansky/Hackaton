@@ -10,7 +10,7 @@ export default function Home() {
         <div className='homePage'>
             <h1>Home Page</h1>
             <SearchForm />
-            <Button name={'test'} />
+            {/*<Button name={'test'} />*/}
             <Footer />
         </div>
     )
