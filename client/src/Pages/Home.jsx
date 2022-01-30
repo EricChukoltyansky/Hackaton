@@ -11,17 +11,8 @@ export default function Home({setResults}) {
     return(
 
           <div className='homePage'>
-
                   <NavBar />
 
-
-            <div className="heading">
-                 <motion.h1
-                 variants={titleVariants}
-                 initial='hidden'
-                 animate='visible'
-                 >...Name After</motion.h1>
-            </div>
               <motion.div className='search-animate-div flex-center'
               variants={searchFormVariants}
               initial='hidden'
@@ -29,6 +20,13 @@ export default function Home({setResults}) {
               >
                   <SearchForm setResults={setResults}/>
               </motion.div>
+              <div className="heading">
+                  <motion.h1
+                      variants={titleVariants}
+                      initial='hidden'
+                      animate='visible'
+                  >...Name After</motion.h1>
+              </div>
 
         </div>
     )
