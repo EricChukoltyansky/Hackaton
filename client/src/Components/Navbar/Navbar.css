@@ -18,13 +18,21 @@
 
 .navbar-ul li {
     font-size: calc(15px + 1vmin);
-    color:#1A535C;
+    color: #F7FFF7;
     text-shadow: 1px 1px 1px #333333;
     transition: 400ms ease-in-out;
 }
 
 .navbar-ul li:hover {
-    color: #F7FFF7;
+    color:#1A535C;
     transform: scale(1.1);
     cursor: pointer;
+}
+.logo i {
+    font-size: calc(30px + 1vmin);
+    transition:500ms ease-in-out;
+}
+
+.logo i:hover {
+    transform: rotate(-20deg) scale(1.2)
 }
