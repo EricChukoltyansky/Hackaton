@@ -4,7 +4,7 @@ export default function SearchForm() {
 
     return(
         <div>
-            SearchForm
+            <h2>Search Form</h2>
         </div>
     )
 }
