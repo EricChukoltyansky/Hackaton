@@ -10,7 +10,9 @@ const Name = require('../models/name.model');
 
 async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
     // const browser = await puppeteer.launch({ headless: false });
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     const page = await browser.newPage();
 
     // Instructs the blank page to navigate a URL
@@ -89,7 +91,9 @@ async function hasSelector(page, selector) {
 }
 
 async function scrapeLinks(url, linkSelector, options = {}) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     const page = await browser.newPage();
 
     // Instructs the blank page to navigate a URL
