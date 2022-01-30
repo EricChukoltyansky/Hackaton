@@ -1,6 +1,9 @@
 .input {
     margin:10px;
     transition: 200ms ease-in-out;
+    font-size: calc(15px + 1vmin);
+    border-radius: 3px;
+    padding:5px 10px;
 }
 
 .input:hover {
@@ -11,4 +14,8 @@
     display: flex;
     justify-content: center;
     margin:10px 25px;
+}
+
+.search-icon {
+    transform: translateY(25px);
 }
