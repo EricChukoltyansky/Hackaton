@@ -4,30 +4,54 @@ import Button from "../../Utils/Button";
 import RadioButtons from "./RadioButtons";
 import './SearchForm.css'
 import names from "../../Api/mockData";
+// import {motion} from "framer-motion";
 
+//
+// const buttonVariants = {
+//     hover: {
+//         scale:1.1,
+//         textShadow:" 0px 0px 8px rgb(255,255,255)",
+//         boxShadow:" 0px 0px 8px rgb(255,255,255)",
+//         transition:{
+//             yoyo :Infinity
+//         },
+//     }
+// }
 
 export default function SearchForm({setResults}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [gender,setGender] = useState([true,false]);
 
     const searchByMeaning = async () => {
+        try {
         console.log("in search by meaning");
         //const data = fetch
         setResults(names);
         setSearchTerm("");
+        } catch(e) {
+            console.log(e.message)
+        }
     }
     const searchByName = async () => {
-        console.log("in search by name");
-        // const data = fetch
-        //setResults(data)
-        setSearchTerm("");
+        try {
+            console.log("in search by name");
+            // const data = fetch
+            //setResults(data)
+            setSearchTerm("");
+        }catch(e) {
+            console.log(e.message)
+        }
     }
 
     const getRandomName = async () => {
-        console.log("in get random name");
-        // const data = fetch
-        //setResults(data)
-        setSearchTerm("");
+        try {
+            console.log("in get random name");
+            // const data = fetch
+            //setResults(data)
+            setSearchTerm("");
+        }catch (e) {
+            
+        }
     }
 
     const handleChange = (e) => {

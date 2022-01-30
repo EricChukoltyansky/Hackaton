@@ -6,8 +6,6 @@ import NavBar from "../Components/Navbar/Navbar";
 export default function Home({setResults}) {
 
 
-    
-
     return(
 
           <div className='homePage'>
