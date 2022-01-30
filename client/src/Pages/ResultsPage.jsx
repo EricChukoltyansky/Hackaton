@@ -1,11 +1,11 @@
 import React from "react";
 import ResultsContainer from "../Components/ResultsContainer/ResultsContainer";
 
-function Results(results) {
+function Results({ results }) {
   return (
-    <div>
+    <div style={{ margin: "30px" }}>
       <h1>תוצאות חיפוש למונח...</h1>
-      <ResultsContainer props={results} />
+      <ResultsContainer results={results} />
     </div>
   );
 }

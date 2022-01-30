@@ -1,14 +1,25 @@
 .card {
-  border: 1px solid rgb(223, 70, 70);
-  padding: 20px;
-  margin: 10px;
+  border: 1px solid #4ecdc4;
+  padding: 15px;
+  margin: 30px 0;
   border-radius: 10px;
   min-width: 300px;
   max-width: 800px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .detailsContainer {
   display: flex;
+}
+.detailsContainer > div {
+  margin: 10px;
+}
+
+.detailsContainer .icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 .head-flex {
@@ -17,8 +28,14 @@
   justify-content: space-between;
   width: 60%;
   margin: auto;
+  line-height: 0.7;
 }
 
 .head-flex h3 {
+  color: #1a535c;
   display: inline-block;
+}
+
+.meaning {
+  width: 60%;
 }
