@@ -47,6 +47,12 @@ module.exports = Object.freeze({
         {
             url: 'https://www.mako.co.il/ninemonth-baby_names/boy_names?partner=NamesLobby&Partner=blockscomp',
             linkSelector: '#progs > ul > li > div > ul > li > a',
+            options: {},
+        },
+        {
+            url: 'https://www.mako.co.il/ninemonth-baby_names/girl_names?partner=NamesLobby&Partner=blockscomp',
+            linkSelector: '#progs > ul > li > div > ul > li > a',
+            options: {},
         },
     ],
 });
