@@ -1,7 +1,11 @@
 const puppeteer = require('puppeteer');
-const { SCRAPING_LIST } = require('./constants');
+const {
+    SCRAPING_LIST,
+    MALE_KEYWORDS,
+    FEMALE_KEYWORDS,
+} = require('./constants');
 const NameUrlLinks = require('../models/name-url-link.model');
-const { options } = require('../app');
+const Name = require('../models/name.model');
 // const numericRegExp = new RegExp(/\d+/);
 
 async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
@@ -72,6 +76,18 @@ async function hasNextPage(page, nextPageSelector) {
     return nextPageExists;
 }
 
+async function hasSelector(page, selector) {
+    // console.log('hasSelector', selector);
+    let selectorExists = false;
+    try {
+        selectorExists = (await page.$(selector)) !== null;
+    } catch (e) {
+        console.log('Error in hasSelector', e.message);
+        selectorExists = false;
+    }
+    return selectorExists;
+}
+
 async function scrapeLinks(url, linkSelector, options = {}) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -114,82 +130,179 @@ async function scrapeLinks(url, linkSelector, options = {}) {
     return links;
 }
 
-async function scrapeName(nameUrl) {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-
-    // Instructs the blank page to navigate a URL
-    await page.goto(recipeLinks[0]);
-    console.log('Page loaded', recipeLinks[0]);
-
-    // Waits until the `title` meta element is rendered
-    await page.waitForSelector('title'); //indicates the page has loaded
-
-    const recipeName = await page.$eval('h1', (elem) => elem.textContent);
-    const ingredients = await page.$$eval(
-        'ul.list-group li:not([class*="sub-title"])',
-        (elems) => {
-            return elems.map((elem) => elem.textContent);
-        }
-    );
-    console.log(recipeName);
-    console.log(ingredients);
-
-    const steps = await page.$$eval('ul.howto-list li', (elems) => {
-        return elems.map((elem) => elem.textContent);
-    });
-    const prepTime = await page.$eval(
-        'ul.recipe-basic-details > li:nth-child(3)',
-        (elem) => elem.textContent
-    );
-
-    await browser.close();
-
-    return {
-        recipeName,
-        ingredients,
-        steps,
-        prepTime,
-    };
+function getStrValue(str, filter) {
+    return str.replace(filter, '').trim();
 }
 
-async function runScraper() {
-    for (const scrapingSource of SCRAPING_LIST) {
-        const nameLinks = [];
-        const {
-            url,
-            linkSelector,
-            options,
-            options: { linkSuffix, suffixList },
-        } = scrapingSource;
-        console.log('Scraping', url);
-        // console.log(linkSelector, linkSuffix, suffixList, options);
-        if (linkSuffix) {
-            for (const suffix of suffixList) {
-                // console.log(`Scraping ${url + linkSuffix + suffix}`);
-                nameLinks.push(
-                    ...(await scrapeLinks(
-                        url + linkSuffix + suffix,
-                        linkSelector,
-                        options
-                    ))
+async function scrapeBabyNamesUrl(nameUrl) {
+    const browser = await puppeteer.launch();
+
+    try {
+        const page = await browser.newPage();
+
+        const nameSelector = 'h1.av-special-heading-tag';
+        const firstPSelector = 'div.entry-content > p:nth-child(1)';
+        const secondPSelector = 'div.entry-content > p:nth-child(2)';
+        const thirdPSelector = 'div.entry-content > p:nth-child(3)';
+        const fourthPSelector = 'div.entry-content > p:nth-child(4)';
+        const nameFilter = 'פירוש השם  ';
+        const originFilter = 'מקור השם:';
+        const englishSpellingFilter = 'בלועזית:';
+        const meaningFilter = 'פירוש השם:';
+        const genderFilter = 'מין:';
+
+        await page.goto(nameUrl);
+        console.log('Page loaded', nameUrl);
+
+        // Waits until the `title` meta element is rendered
+        await page.waitForSelector('title', { timeout: 5000 }); //indicates the page has loaded
+
+        const name = getStrValue(
+            await page.$eval(nameSelector, (elem) => elem.textContent),
+            nameFilter
+        );
+
+        let originP = {},
+            origin = '',
+            englishSpelling = '',
+            gender = '',
+            meaning = '';
+
+        const hasSecondP = await hasSelector(page, secondPSelector);
+        if (hasSecondP) {
+            originP = await (
+                await page.$eval(secondPSelector, (elem) => elem.textContent)
+            ).split('\n');
+
+            origin = getStrValue(originP[0], originFilter);
+            if (originP.length > 1) {
+                englishSpelling = getStrValue(
+                    originP[1],
+                    englishSpellingFilter
+                );
+                gender = getStrValue(originP[2], genderFilter);
+            } else {
+                englishSpelling = getStrValue(
+                    await page.$eval(
+                        thirdPSelector,
+                        (elem) => elem.textContent
+                    ),
+                    englishSpelling
+                );
+                gender = getStrValue(
+                    await page.$eval(
+                        fourthPSelector,
+                        (elem) => elem.textContent
+                    ),
+                    genderFilter
                 );
             }
+            meaning = getStrValue(
+                await page.$eval(firstPSelector, (elem) => elem.textContent),
+                meaningFilter
+            );
         } else {
-            nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
-        }
+            const description = (
+                await page.$eval(firstPSelector, (elem) => elem.textContent)
+            ).split('\n');
 
-        NameUrlLinks.create(
-            { sourceUrl: url, links: nameLinks },
-            (err, data) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('data saved');
-                }
-            }
+            meaning = getStrValue(description[0], meaningFilter);
+            origin = getStrValue(description[1], originFilter);
+            englishSpelling = getStrValue(
+                description[2],
+                englishSpellingFilter
+            );
+            gender = getStrValue(description[3], genderFilter);
+        }
+        const genderMale = MALE_KEYWORDS.some((keyword) =>
+            gender.includes(keyword)
         );
-        // console.log(nameLinks);
+        const genderFemale = FEMALE_KEYWORDS.some((keyword) =>
+            gender.includes(keyword)
+        );
+        const meaningKeywords = meaning.split(' ');
+
+        return {
+            name,
+            origin,
+            meaning,
+            meaningKeywords,
+            genderMale,
+            genderFemale,
+            englishSpelling,
+        };
+    } catch (e) {
+        console.error('Error in scrapeBabyNamesUrl', e.message);
+    } finally {
+        await browser.close();
+    }
+    return {};
+}
+
+async function scrapeAndSaveName(nameUrl) {
+    try {
+        const nameObject = await scrapeBabyNamesUrl(nameUrl);
+        Name.create(nameObject, (err, __) => {
+            if (err) {
+                console.error('Error in saving name', err.message);
+            }
+        });
+    } catch (e) {
+        console.log('Error in scrapeAndSaveName', e.message);
+    }
+}
+
+// const name = await Name.findOne({ name: 'אבאל' });
+// console.log(name);
+// const name2 = await Name.find({ meaningKeywords: 'ביחד' });
+// console.log(name2);
+
+async function runScraper() {
+    // for (const scrapingSource of SCRAPING_LIST) {
+    //     const nameLinks = [];
+    //     const {
+    //         url,
+    //         linkSelector,
+    //         options,
+    //         options: { linkSuffix, suffixList },
+    //     } = scrapingSource;
+    //     console.log('Scraping', url);
+    //     // console.log(linkSelector, linkSuffix, suffixList, options);
+    //     if (linkSuffix) {
+    //         for (const suffix of suffixList) {
+    //             // console.log(`Scraping ${url + linkSuffix + suffix}`);
+    //             nameLinks.push(
+    //                 ...(await scrapeLinks(
+    //                     url + linkSuffix + suffix,
+    //                     linkSelector,
+    //                     options
+    //                 ))
+    //             );
+    //         }
+    //     } else {
+    //         nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
+    //     }
+
+    //     NameUrlLinks.create(
+    //         { sourceUrl: url, links: nameLinks },
+    //         (err, data) => {
+    //             if (err) {
+    //                 console.log(err);
+    //             } else {
+    //                 console.log('data saved');
+    //             }
+    //         }
+    //     );
+    // }
+
+    const nameUrlLinks = await NameUrlLinks.find();
+
+    for (const nameUrlLink of nameUrlLinks) {
+        if (nameUrlLink.sourceUrl.includes('baby-names')) {
+            for (const nameUrl of nameUrlLink.links) {
+                await scrapeAndSaveName(nameUrl);
+            }
+        }
     }
 }
 
