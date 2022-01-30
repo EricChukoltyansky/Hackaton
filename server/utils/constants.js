@@ -1,6 +1,5 @@
 module.exports = Object.freeze({
     ROUTES_API_PREFIX: '/api/v1',
-    ROUTES_SERVER_PREFIX: '/api/v1',
     SCRAPING_LIST: [
         {
             url: 'https://www.baby-names.co.il/category/%d7%9b%d7%9c-%d7%94%d7%a9%d7%9e%d7%95%d7%aa/',

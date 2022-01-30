@@ -1,6 +1,6 @@
 const NameModel = require('../models/name.model');
 
-exports.getAllNames = async (req, res) => {
+const getAllNames = async (__, res) => {
     try {
         const names = await NameModel.find();
         res.send(names);
@@ -15,20 +15,36 @@ exports.getAllNames = async (req, res) => {
 //     genderMale: true,//boolean
 //     genderFemale: true,//boolean
 // }
-exports.getQueriedNames = async (req, res) => {
+const getQueriedNames = async (req, res) => {
     try {
-        const { searchTerm, genderMale, genderFemale } = req.query;
+        const { genderMale, genderFemale } = req.query;
+        const searchTerm = decodeURI(req.query.searchTerm);
+        console.log(searchTerm);
+
+        // { meaningKeywords: searchTerm },
+        const queryArray = [{ meaning: { $regex: searchTerm, $options: 'i' } }];
+        if (genderMale) {
+            queryArray.push({ genderMale: genderMale });
+        }
+        if (genderFemale) {
+            queryArray.push({ genderFemale: genderFemale });
+        }
+
         const names = await NameModel.find({
-            $or: [
-                { meaning: { $regex: searchTerm, $options: 'i' } },
-                // { meaningKeywords: searchTerm },
-                { genderMale: genderMale },
-                { genderFemale: genderFemale },
-            ],
+            $and: queryArray,
         });
+        console.log('queried names:', names.length);
         res.send(names);
     } catch (e) {
         res.status(500).send(e.message);
+    }
+};
+
+exports.getNames = async (req, res) => {
+    if (req.query) {
+        getQueriedNames(req, res);
+    } else {
+        getAllNames(req, res);
     }
 };
 
@@ -51,7 +67,8 @@ exports.getRandomName = async (req, res) => {
 };
 
 exports.getNameByParam = async (req, res) => {
-    const searchedName = req.params.name;
+    const searchedName = decodeURI(req.params.name);
+    console.log(searchedName);
     try {
         const name = await NameModel.findOne({ name: searchedName });
         res.send(name);

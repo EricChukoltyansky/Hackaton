@@ -1,16 +1,15 @@
 const express = require('express');
 const {
-    getAllNames,
-    getQueriedNames,
     getRandomName,
     getNameByParam,
+    getNames,
 } = require('../controllers/name.controller.js');
 // const auth = require('../services/auth.js');
 const router = new express.Router();
 
-router.get('/names', getAllNames);
+router.get('/names', getNames);
 
-router.get('/names', getQueriedNames);
+router.get('/names', getNames);
 
 router.get('/names/random', getRandomName);
 
