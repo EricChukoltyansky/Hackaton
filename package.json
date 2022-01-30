@@ -5,7 +5,11 @@
     "main": "index.js",
     "scripts": {
         "server": "env-cmd -f config/dev.env nodemon server/index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js",
+        "client": "npm run start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
     },
     "repository": {
         "type": "git",
@@ -19,17 +23,13 @@
     "homepage": "https://github.com/EricChukoltyansky/Hackaton#readme",
     "dependencies": {
         "axios": "^0.25.0",
+        "cors": "^2.8.5",
         "dotenv": "^14.3.2",
         "express": "^4.17.2",
         "mongoose": "^6.1.8",
         "node-schedule": "^2.1.0",
-
         "path": "^0.12.7",
         "puppeteer": "^13.1.2"
-
-        
-        "styled-components": "^5.3.3"
-
     },
     "devDependencies": {
         "env-cmd": "^10.1.0",

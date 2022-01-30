@@ -55,6 +55,19 @@ module.exports = Object.freeze({
             options: {},
         },
     ],
+    SCRAPING_LIST_READY_LINKS: [
+        {
+            linkName: 'arabic-names',
+            linkUrl: 'https://rothfarb.info/ronen/arabic/lists.asp?id=13',
+        },
+        {
+            linkName: 'ethiopian-names',
+            linkUrl:
+                'https://little-ethio.com/%D7%A9%D7%9E%D7%95%D7%AA-%D7%A4%D7%A8%D7%98%D7%99%D7%99%D7%9D-%D7%9E%D7%A1%D7%95%D7%A8%D7%AA%D7%99%D7%99%D7%9D-%D7%91%D7%A7%D7%A8%D7%91-%D7%99%D7%95%D7%A6%D7%90%D7%99-%D7%90%D7%AA%D7%99%D7%95%D7%A4/',
+        },
+    ],
+    MALE_KEYWORDS: ['זכר'],
+    FEMALE_KEYWORDS: ['נקבה'],
 });
 
 // const names = [
