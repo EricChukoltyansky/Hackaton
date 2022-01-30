@@ -9,7 +9,10 @@ export default function SearchForm() {
 
     return(
         <div className='search-div'>
-            <h2>חיפוש שם</h2>
+            <div className="search-title">
+                <h2>חיפוש שם</h2>
+            </div>
+
 
            <div className='search-options'>
                <div className='inputsButtons'>
