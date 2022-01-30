@@ -32,16 +32,19 @@
     height:fit-content;
     justify-content: space-around;
     align-items: center;
+
     gap:2rem;
     padding:1rem 2rem;
     border-bottom: grey 1px dotted;
 }
 
 .inputsButtons {
+    width:50%;
     border-left: 1px dotted grey;
     padding-left:1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 
 }

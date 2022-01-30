@@ -1,0 +1,9 @@
+.radio-buttons-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    border:1px dotted #333333;
+    padding:10px 25px;
+    border-radius: 15px;
+}
