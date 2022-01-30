@@ -12,6 +12,7 @@ async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
   // const browser = await puppeteer.launch({ headless: false });
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    ignoreDefaultArgs: ["--disable-extensions"],
   });
   const page = await browser.newPage();
 
@@ -91,6 +92,7 @@ async function hasSelector(page, selector) {
 async function scrapeLinks(url, linkSelector, options = {}) {
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    ignoreDefaultArgs: ["--disable-extensions"],
   });
   try {
     const page = await browser.newPage();
@@ -143,6 +145,7 @@ function getStrValue(str, filter) {
 async function scrapeBabyNamesUrl(nameUrl) {
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    ignoreDefaultArgs: ["--disable-extensions"],
   });
 
   try {
