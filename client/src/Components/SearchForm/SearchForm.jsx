@@ -46,22 +46,27 @@ export default function SearchForm({setResults}) {
             </div>
            <div className='search-options'>
                <div className='inputsButtons'>
+                   <div className='flex-center'>
                         <InputField type='text' name={'search-input'} 
                         placeholder={"הכניסו מילת חיפוש"} 
                         onChange={handleChange} value={searchTerm}/>
+                       <RadioButtons onChangeRadio={onChangeRadio}/>
+                   </div>
                        <div className='flex-around'>
                         <Button className={'search-button'} name={'חפש לפי משמעות'} 
                         callback={searchByMeaning} />
                         <Button className={'search-button'} name={'חיפוש שם'} 
                         callback={searchByName}/>
                        </div>
+
                </div>
                <div className='random-div'>
                    <Button className={'search-button random-button'} name={'שם אקראי'} 
                    callback={getRandomName}/>
                </div>
            </div>
-            <RadioButtons onChangeRadio={onChangeRadio}/>
+
+
         </div>
     )
 }
