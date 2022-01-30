@@ -1,10 +1,16 @@
 import React from "react";
 import './Navbar.css'
+import {motion} from "framer-motion";
+import {NavBarVariants} from "../../Utils/animations/animations";
 
 export default function NavBar() {
 
  return (
-     <div className='navbar'>
+     <motion.div className='navbar'
+         variants={NavBarVariants}
+         initial='hidden'
+         animate='visible'
+     >
          <div >
         <ul className='navbar-ul'>
             <li>
@@ -25,6 +31,6 @@ export default function NavBar() {
             </div>
         </ul>
          </div>
-     </div>
+     </motion.div>
  )
 }

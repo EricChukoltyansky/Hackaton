@@ -6,4 +6,18 @@
     border:1px dotted #333333;
     padding:10px 25px;
     border-radius: 15px;
+    transition:500ms ease-in-out;
+}
+
+.radio-buttons-div:hover {
+    transform: scale(1.1);
+}
+
+.radio-buttons-div input {
+    font-size: calc(15px + 1vmin);
+}
+
+.radio-buttons-div input:hover {
+    filter: brightness(80%);
+    cursor: pointer;
 }

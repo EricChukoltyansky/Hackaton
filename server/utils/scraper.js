@@ -7,21 +7,16 @@ const {
 const NameUrlLinks = require("../models/name-url-link.model");
 const Name = require("../models/name.model");
 // const numericRegExp = new RegExp(/\d+/);
-
 async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
   // const browser = await puppeteer.launch({ headless: false });
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    ignoreDefaultArgs: ["--disable-extensions"],
   });
   const page = await browser.newPage();
-
   // Instructs the blank page to navigate a URL
   await page.goto(url);
-
   // Waits until the `title` meta element is rendered
   await page.waitForSelector("title"); //indicates the page has loaded
-
   // const selector = '.d3-o-table > tbody > tr ';
   const names = await page.$$eval(nameSelector, (elems) =>
     elems.map((elem) => elem.textContent)
@@ -34,15 +29,12 @@ async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
     description: descriptions[index],
   }));
   console.log(superstitions);
-
   await browser.close();
 }
-
 async function getLinkHrefs(page, linkSelector) {
   await page.waitForSelector(linkSelector, { timeout: 5000 });
   return page.$$eval(linkSelector, (elems) => elems.map((elem) => elem.href));
 }
-
 async function infiniteScrollToBottom(page) {
   let hasScroll = true;
   let scrollCount = 0;
@@ -64,7 +56,6 @@ async function infiniteScrollToBottom(page) {
     }
   }
 }
-
 async function hasNextPage(page, nextPageSelector) {
   let nextPageExists = false;
   try {
@@ -73,10 +64,8 @@ async function hasNextPage(page, nextPageSelector) {
     console.log("Error in hasNextPage", e.message);
     nextPageExists = false;
   }
-
   return nextPageExists;
 }
-
 async function hasSelector(page, selector) {
   // console.log('hasSelector', selector);
   let selectorExists = false;
@@ -88,25 +77,19 @@ async function hasSelector(page, selector) {
   }
   return selectorExists;
 }
-
 async function scrapeLinks(url, linkSelector, options = {}) {
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    ignoreDefaultArgs: ["--disable-extensions"],
   });
+  const links = [];
   try {
     const page = await browser.newPage();
-
     // Instructs the blank page to navigate a URL
     await page.goto(url);
-
     // Waits until the `title` meta element is rendered
     await page.waitForSelector(linkSelector); //indicates the page has loaded
     console.log("Page loaded", url);
-
     const { nextPageSelector, isInfiniteScroll } = options;
-
-    const links = [];
     let pageLinks = [];
     if (nextPageSelector) {
       let goToNext = true;
@@ -115,7 +98,6 @@ async function scrapeLinks(url, linkSelector, options = {}) {
         console.log("paging# ", pageCount++);
         pageLinks = await getLinkHrefs(page, linkSelector);
         links.push(...pageLinks);
-
         goToNext = await hasNextPage(page, nextPageSelector);
         if (goToNext) {
           await page.click(nextPageSelector);
@@ -137,20 +119,15 @@ async function scrapeLinks(url, linkSelector, options = {}) {
   }
   return links;
 }
-
 function getStrValue(str, filter) {
   return str.replace(filter, "").trim();
 }
-
 async function scrapeBabyNamesUrl(nameUrl) {
   const browser = await puppeteer.launch({
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    ignoreDefaultArgs: ["--disable-extensions"],
   });
-
   try {
     const page = await browser.newPage();
-
     const nameSelector = "h1.av-special-heading-tag";
     const firstPSelector = "div.entry-content > p:nth-child(1)";
     const secondPSelector = "div.entry-content > p:nth-child(2)";
@@ -161,30 +138,24 @@ async function scrapeBabyNamesUrl(nameUrl) {
     const englishSpellingFilter = "בלועזית:";
     const meaningFilter = "פירוש השם:";
     const genderFilter = "מין:";
-
     await page.goto(nameUrl);
     console.log("Page loaded", nameUrl);
-
     // Waits until the `title` meta element is rendered
     await page.waitForSelector("title", { timeout: 5000 }); //indicates the page has loaded
-
     const name = getStrValue(
       await page.$eval(nameSelector, (elem) => elem.textContent),
       nameFilter
     );
-
     let originP = {},
       origin = "",
       englishSpelling = "",
       gender = "",
       meaning = "";
-
     const hasSecondP = await hasSelector(page, secondPSelector);
     if (hasSecondP) {
       originP = await (
         await page.$eval(secondPSelector, (elem) => elem.textContent)
       ).split("\n");
-
       origin = getStrValue(originP[0], originFilter);
       if (originP.length > 1) {
         englishSpelling = getStrValue(originP[1], englishSpellingFilter);
@@ -207,7 +178,6 @@ async function scrapeBabyNamesUrl(nameUrl) {
       const description = (
         await page.$eval(firstPSelector, (elem) => elem.textContent)
       ).split("\n");
-
       meaning = getStrValue(description[0], meaningFilter);
       origin = getStrValue(description[1], originFilter);
       englishSpelling = getStrValue(description[2], englishSpellingFilter);
@@ -220,7 +190,6 @@ async function scrapeBabyNamesUrl(nameUrl) {
       gender.includes(keyword)
     );
     const meaningKeywords = meaning.split(" ");
-
     return {
       name,
       origin,
@@ -237,7 +206,6 @@ async function scrapeBabyNamesUrl(nameUrl) {
   }
   return {};
 }
-
 async function scrapeAndSaveName(nameUrl) {
   try {
     const nameObject = await scrapeBabyNamesUrl(nameUrl);
@@ -250,7 +218,6 @@ async function scrapeAndSaveName(nameUrl) {
     console.log("Error in scrapeAndSaveName", e.message);
   }
 }
-
 async function scrapeAndSaveNamesUrls() {
   for (const scrapingSource of SCRAPING_LIST) {
     const nameLinks = [];
@@ -287,12 +254,9 @@ async function scrapeAndSaveNamesUrls() {
     }
   }
 }
-
 async function runScraper() {
   await scrapeAndSaveNamesUrls();
-
   const nameUrlLinks = await NameUrlLinks.find();
-
   for (const nameUrlLink of nameUrlLinks) {
     if (nameUrlLink.sourceUrl.includes("baby-names")) {
       for (const nameUrl of nameUrlLink.links) {
@@ -301,7 +265,4 @@ async function runScraper() {
     }
   }
 }
-
 module.exports = { runScraper };
-
-// comment
