@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./Pages/Home";
 import ResultsPage from "./Pages/ResultsPage";
-import { useState } from "react";
+import names from "./Api/mockData";
 
 function App() {
-  const [results, setResults] = useState([]); // eslint-disable-line
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    setResults(names);
+  }, []);
 
   return (
     <div>
-      <Home />
+      <Home props={setResults} />
       <ResultsPage props={results} />
     </div>
   );
