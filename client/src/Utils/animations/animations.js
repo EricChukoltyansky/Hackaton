@@ -17,7 +17,7 @@ export const titleVariants = {
 export const searchFormVariants = {
     hidden :{
         opacity:0,
-        y:-20
+        y:-200
     },
     visible: {
         opacity: 1,
