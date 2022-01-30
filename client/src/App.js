@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Home from "./Pages/Home";
 import ResultsPage from "./Pages/ResultsPage";
-import names from "./Api/mockData";
 
 function App() {
-  const [results, setResults] = useState(names);
+  const [results, setResults] = useState([]);
 
   return (
     <div>
       <Home setResults={setResults} />
-      <ResultsPage results={results} />
+      {results.length > 0 ? <ResultsPage results={results} /> : null}
+      
+      {/* TODO hide/show if there are results */}
     </div>
   );
 }
