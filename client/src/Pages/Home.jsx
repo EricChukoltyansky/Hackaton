@@ -4,13 +4,16 @@ import Button from "../Utils/Button";
 import Footer from "../Components/Footer/Footer";
 import './Home.css'
 
+
 export default function Home() {
 
     return(
         <div className='homePage'>
-            <h1>Home Page</h1>
+            <div className="heading">
+                 <h1> שׁמי שם שם של האתר</h1>
+            </div>
             <SearchForm />
-            {/*<Button name={'test'} />*/}
+
             <Footer />
         </div>
     )
