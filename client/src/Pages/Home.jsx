@@ -9,8 +9,9 @@ export default function Home() {
 
     return(
         <div className='homePage'>
-
-            <h1>שׁמי שם שם</h1>
+            <div className="heading">
+                 <h1> שׁמי שם שם של האתר</h1>
+            </div>
             <SearchForm />
 
             <Footer />

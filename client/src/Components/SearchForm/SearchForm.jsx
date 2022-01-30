@@ -4,16 +4,19 @@ import Button from "../../Utils/Button";
 
 export default function SearchForm() {
 
+
+
     return(
-        <div>
-            <h2>חפש שם</h2>
+        <form >
+            <h2>חיפוש שם</h2>
 
            <div>
+               {/*<InputField type={'text'} name={'חפש'} />*/}
                 <Button name={'חפש לפי משמעות'} />
                 <Button name={'חיפוש שם'} />
                 <Button name={'שם אקראי'} />
-
            </div>
-        </div>
+
+        </form>
     )
 }
