@@ -94,43 +94,47 @@ async function scrapeLinks(url, linkSelector, options = {}) {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
-    const page = await browser.newPage();
+    try {
+        const page = await browser.newPage();
 
-    // Instructs the blank page to navigate a URL
-    await page.goto(url);
+        // Instructs the blank page to navigate a URL
+        await page.goto(url);
 
-    // Waits until the `title` meta element is rendered
-    await page.waitForSelector(linkSelector); //indicates the page has loaded
-    console.log('Page loaded', url);
+        // Waits until the `title` meta element is rendered
+        await page.waitForSelector(linkSelector); //indicates the page has loaded
+        console.log('Page loaded', url);
 
-    const { nextPageSelector, isInfiniteScroll } = options;
+        const { nextPageSelector, isInfiniteScroll } = options;
 
-    const links = [];
-    let pageLinks = [];
-    if (nextPageSelector) {
-        let goToNext = true;
-        let pageCount = 1;
-        while (goToNext) {
-            console.log('paging# ', pageCount++);
+        const links = [];
+        let pageLinks = [];
+        if (nextPageSelector) {
+            let goToNext = true;
+            let pageCount = 1;
+            while (goToNext) {
+                console.log('paging# ', pageCount++);
+                pageLinks = await getLinkHrefs(page, linkSelector);
+                links.push(...pageLinks);
+
+                goToNext = await hasNextPage(page, nextPageSelector);
+                if (goToNext) {
+                    await page.click(nextPageSelector);
+                }
+            }
+        } else {
+            if (isInfiniteScroll) {
+                await infiniteScrollToBottom(page);
+            }
             pageLinks = await getLinkHrefs(page, linkSelector);
             links.push(...pageLinks);
-
-            goToNext = await hasNextPage(page, nextPageSelector);
-            if (goToNext) {
-                await page.click(nextPageSelector);
-            }
         }
-    } else {
-        if (isInfiniteScroll) {
-            await infiniteScrollToBottom(page);
-        }
-        pageLinks = await getLinkHrefs(page, linkSelector);
-        links.push(...pageLinks);
+        // console.log(links);
+        console.log(links.length);
+    } catch (e) {
+        console.error('Error in scrapeLinks', e.message);
+    } finally {
+        await browser.close();
     }
-    // console.log(links);
-    console.log(links.length);
-
-    await browser.close();
     return links;
 }
 
@@ -268,10 +272,8 @@ async function scrapeAndSaveNamesUrls() {
             options: { linkSuffix, suffixList },
         } = scrapingSource;
         console.log('Scraping', url);
-        // console.log(linkSelector, linkSuffix, suffixList, options);
         if (linkSuffix) {
             for (const suffix of suffixList) {
-                // console.log(`Scraping ${url + linkSuffix + suffix}`);
                 nameLinks.push(
                     ...(await scrapeLinks(
                         url + linkSuffix + suffix,
@@ -284,16 +286,20 @@ async function scrapeAndSaveNamesUrls() {
             nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
         }
 
-        NameUrlLinks.create(
-            { sourceUrl: url, links: nameLinks },
-            (err, data) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('data saved');
+        try {
+            NameUrlLinks.create(
+                { sourceUrl: url, links: nameLinks },
+                (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('data saved');
+                    }
                 }
-            }
-        );
+            );
+        } catch (e) {
+            console.error('Error in saving nameLinks', e.message);
+        }
     }
 }
 
