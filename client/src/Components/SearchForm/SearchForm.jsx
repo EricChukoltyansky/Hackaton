@@ -13,11 +13,11 @@ export default function SearchForm() {
 
            <div className='search-options'>
                <div className='inputsButtons'>
-                    <InputField type='text' name={'חפש'} />
-                   <div className='flex-around'>
-                    <Button className={'search-button'} name={'חפש לפי משמעות'} />
-                    <Button className={'search-button'} name={'חיפוש שם'} />
-                   </div>
+                        <InputField type='text' name={'חפש'} />
+                       <div className='flex-around'>
+                        <Button className={'search-button'} name={'חפש לפי משמעות'} />
+                        <Button className={'search-button'} name={'חיפוש שם'} />
+                       </div>
                </div>
                <div className='random-div'>
                    <Button className={'search-button random-button'} name={'שם אקראי'} />
