@@ -1,14 +1,26 @@
 .card {
-  border: 1px solid rgb(223, 70, 70);
+  border: 1px solid #4ecdc4;
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
   min-width: 300px;
   max-width: 800px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .detailsContainer {
   display: flex;
+  padding: 15px;
+}
+.detailsContainer > div {
+  margin: 10px;
+}
+
+.detailsContainer .icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .head-flex {
@@ -20,5 +32,10 @@
 }
 
 .head-flex h3 {
+  color: #1a535c;
   display: inline-block;
+}
+
+.meaning {
+  width: 60%;
 }

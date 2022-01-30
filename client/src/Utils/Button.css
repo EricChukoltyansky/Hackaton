@@ -1,0 +1,13 @@
+button.icon-button {
+  background-color: transparent;
+  border: none;
+  color: #ff6b6b;
+  font-size: large;
+  transition: 300ms ease-in-out;
+}
+
+button.icon-button:hover {
+  color: #4ecdc4;
+  cursor: pointer;
+  transform: scale(110%);
+}
