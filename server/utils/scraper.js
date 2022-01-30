@@ -255,8 +255,9 @@ async function scrapeAndSaveNamesUrls() {
   }
 }
 async function runScraper() {
-  await scrapeAndSaveNamesUrls();
+  // await scrapeAndSaveNamesUrls();
   const nameUrlLinks = await NameUrlLinks.find();
+  console.log(nameUrlLinks.length);
   for (const nameUrlLink of nameUrlLinks) {
     if (nameUrlLink.sourceUrl.includes("baby-names")) {
       for (const nameUrl of nameUrlLink.links) {
