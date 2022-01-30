@@ -2,14 +2,17 @@
 
 ## Name Object
 
-| Property        | Type     | Description                                        |
-| --------------- | -------- | -------------------------------------------------- |
-| \_id            | `String` | <p>Unique id </p>                                  |
-| name            | `String` | <p>Name (unique to prevent duplicates ???)</p>     |
-| origin          | `String` | <p>Ethnic/Lingual origin of the name(required)</p> |
-| meaning         | `String` | <p>Meaning of the name(optional)</p>               |
-| arabicSpelling  | `String` | <p>Name spelling in arabic(optional)</p>           |
-| englishSpelling | `String` | <p>Name spelling in english(optional)</p>          |
+| Property        | Type      | Description                                        | Visible on Request |
+| --------------- | --------- | -------------------------------------------------- | ------------------ |
+| \_id            | `String`  | <p>Unique id </p>                                  | False              |
+| name            | `String`  | <p>Name (unique to prevent duplicates)</p>         | True               |
+| origin          | `String`  | <p>Ethnic/Lingual origin of the name(required)</p> | True               |
+| meaning         | `String`  | <p>Meaning of the name(optional)</p>               | True               |
+| meaningKeywords | `Array`   | <p>utility data structure for searching</p>        | False              |
+| genderMale      | `Boolean` | <p>Is this a male name(optional)</p>               | True               |
+| genderFemale    | `Boolean` | <p>Is this a female name(optional)</p>             | True               |
+| arabicSpelling  | `String`  | <p>Name spelling in arabic(optional)</p>           | True               |
+| englishSpelling | `String`  | <p>Name spelling in english(optional)</p>          | True               |
 
 ## **Get all names**
 
@@ -17,7 +20,7 @@ Returns json data about a single user.
 
 -   **URL**
 
-    /api/v1/names/:id
+    /api/v1/names/
 
 ## **Get Name **
 
