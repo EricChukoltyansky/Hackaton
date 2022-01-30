@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Home from "./Pages/Home";
 import ResultsPage from "./Pages/ResultsPage";
 import names from "./Api/mockData";
 
 function App() {
-  const [results, setResults] = useState([]);
-
-  useEffect(() => {
-    setResults(names);
-  }, []);
+  const [results, setResults] = useState(names);
 
   return (
     <div>
-      <Home props={setResults} />
-      <ResultsPage props={results} />
+      <Home setResults={setResults} />
+      <ResultsPage results={results} />
     </div>
   );
 }
