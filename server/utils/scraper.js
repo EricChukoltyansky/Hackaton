@@ -94,6 +94,7 @@ async function scrapeLinks(url, linkSelector, options = {}) {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
+    const links = [];
     try {
         const page = await browser.newPage();
 
@@ -106,7 +107,6 @@ async function scrapeLinks(url, linkSelector, options = {}) {
 
         const { nextPageSelector, isInfiniteScroll } = options;
 
-        const links = [];
         let pageLinks = [];
         if (nextPageSelector) {
             let goToNext = true;
