@@ -20,7 +20,8 @@ export default function NavBar() {
                 מועדפים
             </li>
             <div className="logo">
-                LOGO
+
+                <i className="fas fa-signature"> </i>
             </div>
         </ul>
          </div>
