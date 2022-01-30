@@ -4,20 +4,11 @@ import Card from "../Card/Card";
 const ResultsContainer = (results) => {
   const renderCards = (results) => {
     return results.map((nameCard) => {
-      return nameCard;
+      return <Card key={nameCard._id} props={nameCard} />;
     });
   };
 
-  return (
-    <>
-      {renderCards}
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-    </>
-  );
+  return <>{renderCards()}</>;
 };
 
 export default ResultsContainer;

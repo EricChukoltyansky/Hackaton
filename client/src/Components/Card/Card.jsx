@@ -1,25 +1,33 @@
 import React from "react";
 import "./Card.css";
 
-function Card() {
+function Card({
+  name,
+  englishSpelling,
+  arabSpelling,
+  origin,
+  meaning,
+  genderMale,
+  genderFemale,
+}) {
   return (
     <div className="card">
       <div className="head-flex">
-        <h3> שם פרטי</h3>
-        <h3> First Name</h3>
-        <h3> اسم شخصي</h3>
+        <h3> {name}שםפרטי</h3>
+        <h3> {englishSpelling}Name</h3>
+        <h3> اسم {arabSpelling}</h3>
       </div>
 
       <div className="detailsContainer">
         <div className="icons">
-          <i class="far fa-star">star</i>
-          <i class="fas fa-share-alt">share</i>
+          <i className="far fa-star">star</i>
+          <i className="fas fa-share-alt">share</i>
         </div>
 
-        <div className="description">
-          תיאור ארוך של משמעות השם תיאור הארוך כעגלכחעגלכחע
+        <div className="meaning">{meaning}</div>
+        <div>
+          <input type="checkbox" disabled readonly value="1" />
         </div>
-        <div>gender</div>
       </div>
     </div>
   );
