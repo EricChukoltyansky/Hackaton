@@ -4,19 +4,10 @@ import Button from "../../Utils/Button";
 import RadioButtons from "./RadioButtons";
 import './SearchForm.css'
 import names from "../../Api/mockData";
-// import {motion} from "framer-motion";
+import myApi from '../../Api/Api';
+import {motion} from "framer-motion";
+import {searchFormVariants} from "../../Utils/animations/animations";
 
-//
-// const buttonVariants = {
-//     hover: {
-//         scale:1.1,
-//         textShadow:" 0px 0px 8px rgb(255,255,255)",
-//         boxShadow:" 0px 0px 8px rgb(255,255,255)",
-//         transition:{
-//             yoyo :Infinity
-//         },
-//     }
-// }
 
 export default function SearchForm({setResults}) {
     const [searchTerm, setSearchTerm] = useState("");
@@ -49,8 +40,8 @@ export default function SearchForm({setResults}) {
             // const data = fetch
             //setResults(data)
             setSearchTerm("");
-        }catch (e) {
-            
+        }catch(e) {
+
         }
     }
 
@@ -64,7 +55,11 @@ export default function SearchForm({setResults}) {
       }
 
     return(
-        <div className='search-div'>
+        <motion.div className='search-div'
+        variant={searchFormVariants}
+        initial='hidden'
+        animate='visible'
+        >
             {/*<div className="search-title">*/}
             {/*    <h2>חיפוש שם</h2>*/}
             {/*</div>*/}
@@ -82,7 +77,6 @@ export default function SearchForm({setResults}) {
                         <Button className={'search-button'} name={'חיפוש שם'} 
                         callback={searchByName}/>
                        </div>
-
                </div>
                <div className='random-div'>
                    <Button className={'search-button random-button'} name={'שם אקראי'} 
@@ -91,6 +85,6 @@ export default function SearchForm({setResults}) {
            </div>
 
 
-        </div>
+        </motion.div>
     )
 }

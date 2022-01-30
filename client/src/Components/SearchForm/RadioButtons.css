@@ -10,7 +10,7 @@
 }
 
 .radio-buttons-div:hover {
-
+    transform: scale(1.1);
 }
 
 .radio-buttons-div input {
@@ -18,6 +18,6 @@
 }
 
 .radio-buttons-div input:hover {
-    transform: scale(1.1);
+    filter: brightness(80%);
     cursor: pointer;
 }
