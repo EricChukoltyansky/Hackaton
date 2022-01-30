@@ -9,5 +9,29 @@ button.icon-button {
 button.icon-button:hover {
   color: #4ecdc4;
   cursor: pointer;
-  transform: scale(110%);
+  transform: scale(1.1);
+}
+
+.search-button {
+  padding:10px 25px;
+  background: #4ECDC4 ;
+  transition: 300ms ease-in-out;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  border-radius: 10px;
+  font-size: calc(10px + 1vmin);
+}
+
+.search-button:hover {
+  padding:10px 25px;
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: rgb(38, 57, 77) 0 20px 30px -10px;
+}
+.search-button:active {
+  background: #f2f5f5;
+  opacity: 0.8;
+}
+
+.random-button {
+  background: #FFE66D;
 }

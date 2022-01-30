@@ -1,6 +1,30 @@
-.nav {
+.navbar {
     width:100%;
     height:fit-content;
     background:#4ECDC4 ;
-    color:#333
+    color:#333;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0 -2px 6px 0 inset;
+}
+
+.navbar-ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:calc(30px + 2vmin)
+}
+
+.navbar-ul li {
+    font-size: calc(10px + 1vmin);
+    color:#1A535C;
+    text-shadow: 1px 1px 1px #333333;
+    transition: 400ms ease-in-out;
+}
+
+.navbar-ul li:hover {
+    color: #F7FFF7;
+    transform: scale(1.1);
+    cursor: pointer;
 }
