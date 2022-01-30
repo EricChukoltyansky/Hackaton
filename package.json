@@ -16,5 +16,14 @@
     "bugs": {
         "url": "https://github.com/EricChukoltyansky/Hackaton/issues"
     },
-    "homepage": "https://github.com/EricChukoltyansky/Hackaton#readme"
+    "homepage": "https://github.com/EricChukoltyansky/Hackaton#readme",
+    "dependencies": {
+        "express": "^4.17.2",
+        "mongoose": "^6.1.8",
+        "node-schedule": "^2.1.0",
+        "puppeteer": "^13.1.2"
+    },
+    "devDependencies": {
+        "morgan": "^1.10.0"
+    }
 }
