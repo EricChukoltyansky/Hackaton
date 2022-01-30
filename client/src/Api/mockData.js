@@ -1,4 +1,4 @@
-export default names = [
+const names = [
   {
     name: "אייל",
     origin: 'תנ"ך / עולם החי',
@@ -24,3 +24,5 @@ export default names = [
     englishSpelling: "Eva",
   },
 ];
+
+export default names;
