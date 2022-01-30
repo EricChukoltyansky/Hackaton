@@ -1,10 +1,18 @@
 import React from "react";
 import Card from "../Card/Card";
 
-const ResultsContainer = () => {
+const ResultsContainer = (results) => {
+  const renderCards = (results) => {
+    return results.map((nameCard) => {
+      return nameCard;
+    });
+  };
+
   return (
     <>
-      ResultsContainer
+      {renderCards}
+      <Card />
+      <Card />
       <Card />
       <Card />
       <Card />

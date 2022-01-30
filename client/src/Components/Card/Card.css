@@ -3,9 +3,22 @@
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
+  min-width: 300px;
+  max-width: 800px;
 }
 
 .detailsContainer {
   display: flex;
-  align-items: stretch;
+}
+
+.head-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+  margin: auto;
+}
+
+.head-flex h3 {
+  display: inline-block;
 }
