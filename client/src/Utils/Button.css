@@ -2,8 +2,9 @@ button.icon-button {
   background-color: transparent;
   border: none;
   color: #ff6b6b;
-  font-size: large;
+  font-size: x-large;
   transition: 300ms ease-in-out;
+  margin-bottom: 10px;
 }
 
 button.icon-button:hover {
