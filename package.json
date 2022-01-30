@@ -4,7 +4,7 @@
     "description": "Bootcamp Hackaton January 2022",
     "main": "index.js",
     "scripts": {
-        "server": "node server/index.js",
+        "server": "env-cmd -f config/dev.env nodemon server/index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -24,6 +24,7 @@
         "puppeteer": "^13.1.2"
     },
     "devDependencies": {
+        "env-cmd": "^10.1.0",
         "morgan": "^1.10.0"
     }
 }
