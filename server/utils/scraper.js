@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const { SCRAPING_LIST } = require('./constants');
+const NameUrlLinks = require('../models/name-url-link.model');
 // const numericRegExp = new RegExp(/\d+/);
 
 async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
@@ -57,6 +59,18 @@ async function infiniteScrollToBottom(page) {
     }
 }
 
+async function hasNextPage(page, nextPageSelector) {
+    let nextPageExists = false;
+    try {
+        nextPageExists = (await page.$(nextPageSelector)) !== null;
+    } catch (e) {
+        console.log('Error in hasNextPage', e.message);
+        nextPageExists = false;
+    }
+
+    return nextPageExists;
+}
+
 async function scrapeLinks(url, linkSelector, options = {}) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -73,18 +87,17 @@ async function scrapeLinks(url, linkSelector, options = {}) {
     const links = [];
     let pageLinks = [];
     if (nextPageSelector) {
-        let hasNextPage = true;
-        let pageCount = 0;
-        while (hasNextPage) {
+        let goToNext = true;
+        let pageCount = 1;
+        while (goToNext) {
             console.log('paging# ', pageCount++);
             pageLinks = await getLinkHrefs(page, linkSelector);
             links.push(...pageLinks);
-            let npsText = await page.$eval(
-                nextPageSelector,
-                (elem) => elem.textContent
-            );
-            hasNextPage = !numericRegExp.test(npsText);
-            await page.click(nextPageSelector);
+
+            goToNext = await hasNextPage(page, nextPageSelector);
+            if (goToNext) {
+                await page.click(nextPageSelector);
+            }
         }
     } else {
         if (isInfiniteScroll) {
@@ -93,7 +106,7 @@ async function scrapeLinks(url, linkSelector, options = {}) {
         pageLinks = await getLinkHrefs(page, linkSelector);
         links.push(...pageLinks);
     }
-    console.log(links);
+    // console.log(links);
     console.log(links.length);
 
     await browser.close();
@@ -140,11 +153,37 @@ async function getRecipeFD(recipeLinks) {
 }
 
 async function runScraper() {
-    const nameLinks = await scrapeLinks(
-        'https://www.foodsdictionary.co.il/tag/ethnic-food-recipes',
-        'div.col > div.col-limit > a',
-        { nextPageSelector: 'ul.paging-toolbar li:last-child' }
-    );
+    const nameLinks = [];
+    for (const scrapingSource of SCRAPING_LIST.slice(2, 1)) {
+        const { url, linkSelector, options } = scrapingSource;
+        const { linkSuffix, suffixList } = options;
+        if (linkSuffix) {
+            for (const suffix of suffixList) {
+                console.log(`Scraping ${url + linkSuffix + suffix}`);
+                nameLinks.push(
+                    ...(await scrapeLinks(
+                        url + linkSuffix + suffix,
+                        linkSelector,
+                        options
+                    ))
+                );
+            }
+        } else {
+            nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
+        }
+        // console.log(nameLinks);
+    }
+    console.log(nameLinks);
+
+    // NameUrlLinks.create({ sourceUrl: url, links: nameLinks }, (err, data) => {
+    //     if (err) {
+    //         console.log();
+    //     } else {
+    //         console.log('data saved');
+    //     }
+    // });
 }
 
-runScraper();
+// runScraper();
+
+module.exports = { runScraper };
