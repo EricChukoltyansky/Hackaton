@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const nameUrlLinkSchema = new mongoose.Schema({
     sourceUrl: {
         type: String,
+        unique: true,
         required: true,
     },
     links: [
         {
             type: String,
-            unique: true,
             required: true,
             trim: true,
         },
