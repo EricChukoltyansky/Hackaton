@@ -252,48 +252,47 @@ async function scrapeAndSaveName(nameUrl) {
     }
 }
 
-// const name = await Name.findOne({ name: 'אבאל' });
-// console.log(name);
-// const name2 = await Name.find({ meaningKeywords: 'ביחד' });
-// console.log(name2);
+async function scrapeAndSaveNamesUrls() {
+    for (const scrapingSource of SCRAPING_LIST) {
+        const nameLinks = [];
+        const {
+            url,
+            linkSelector,
+            options,
+            options: { linkSuffix, suffixList },
+        } = scrapingSource;
+        console.log('Scraping', url);
+        // console.log(linkSelector, linkSuffix, suffixList, options);
+        if (linkSuffix) {
+            for (const suffix of suffixList) {
+                // console.log(`Scraping ${url + linkSuffix + suffix}`);
+                nameLinks.push(
+                    ...(await scrapeLinks(
+                        url + linkSuffix + suffix,
+                        linkSelector,
+                        options
+                    ))
+                );
+            }
+        } else {
+            nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
+        }
+
+        NameUrlLinks.create(
+            { sourceUrl: url, links: nameLinks },
+            (err, data) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('data saved');
+                }
+            }
+        );
+    }
+}
 
 async function runScraper() {
-    // for (const scrapingSource of SCRAPING_LIST) {
-    //     const nameLinks = [];
-    //     const {
-    //         url,
-    //         linkSelector,
-    //         options,
-    //         options: { linkSuffix, suffixList },
-    //     } = scrapingSource;
-    //     console.log('Scraping', url);
-    //     // console.log(linkSelector, linkSuffix, suffixList, options);
-    //     if (linkSuffix) {
-    //         for (const suffix of suffixList) {
-    //             // console.log(`Scraping ${url + linkSuffix + suffix}`);
-    //             nameLinks.push(
-    //                 ...(await scrapeLinks(
-    //                     url + linkSuffix + suffix,
-    //                     linkSelector,
-    //                     options
-    //                 ))
-    //             );
-    //         }
-    //     } else {
-    //         nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
-    //     }
-
-    //     NameUrlLinks.create(
-    //         { sourceUrl: url, links: nameLinks },
-    //         (err, data) => {
-    //             if (err) {
-    //                 console.log(err);
-    //             } else {
-    //                 console.log('data saved');
-    //             }
-    //         }
-    //     );
-    // }
+    await scrapeAndSaveNamesUrls();
 
     const nameUrlLinks = await NameUrlLinks.find();
 
@@ -305,7 +304,5 @@ async function runScraper() {
         }
     }
 }
-
-// runScraper();
 
 module.exports = { runScraper };

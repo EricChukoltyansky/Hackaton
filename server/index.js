@@ -3,9 +3,9 @@ const { runScraper } = require('./utils/scraper');
 const port = process.env.PORT;
 const schedule = require('node-schedule');
 
-// app.listen(port, () => {
-//     console.log('Server is up on port ' + port);
-// });
+app.listen(port, () => {
+    console.log('Server is up on port ' + port);
+});
 
 runScraper();
 

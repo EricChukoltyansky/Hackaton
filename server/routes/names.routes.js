@@ -1,27 +1,23 @@
 const express = require('express');
-const NameController = require('../controllers/name.controller.js');
+const {
+    getAllNames,
+    getQueriedNames,
+    getRandomName,
+    getNameByParam,
+} = require('../controllers/name.controller.js');
 // const auth = require('../services/auth.js');
 const router = new express.Router();
 
-router.get('/names', NameController.getAllNames);
+router.get('/names', getAllNames);
 
-// router.get('/names', NameController.getQueriedNames);
-// {
-//     searchTerm: '',//word in meaning
-//     genderMale: true,//boolean
-//     genderFemale: true,//boolean
-// }
+router.get('/names', getQueriedNames);
 
-// router.get('/names/random', NameController.getUserByName);
-// {
-//     genderMale: true,//boolean
-//     genderFemale: true,//boolean
-// }
+router.get('/names/random', getRandomName);
 
-// router.get('/names/:name', NameController.getUserByName);
+router.get('/names/:name', getNameByParam);
 
 // //only for admins
-// router.patch('/names/auth', auth, NameController.updateAuthUser);
+// router.patch('/names/auth', auth, updateAuthUser);
 
 // //only for admins
 // router.delete('/names/auth', auth, NameController.deleteAuthUser);
