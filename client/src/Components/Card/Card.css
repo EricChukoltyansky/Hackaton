@@ -1,0 +1,11 @@
+.card {
+  border: 1px solid rgb(223, 70, 70);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.detailsContainer {
+  display: flex;
+  align-items: stretch;
+}

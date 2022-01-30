@@ -23,8 +23,13 @@
         "express": "^4.17.2",
         "mongoose": "^6.1.8",
         "node-schedule": "^2.1.0",
+
         "path": "^0.12.7",
         "puppeteer": "^13.1.2"
+
+        
+        "styled-components": "^5.3.3"
+
     },
     "devDependencies": {
         "env-cmd": "^10.1.0",

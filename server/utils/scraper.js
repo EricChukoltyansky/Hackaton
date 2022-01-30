@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const { SCRAPING_LIST } = require('./constants');
 const NameUrlLinks = require('../models/name-url-link.model');
+const { options } = require('../app');
 // const numericRegExp = new RegExp(/\d+/);
 
 async function getNamesAndDescriptions(url, nameSelector, descriptionSelector) {
@@ -113,7 +114,7 @@ async function scrapeLinks(url, linkSelector, options = {}) {
     return links;
 }
 
-async function getRecipeFD(recipeLinks) {
+async function scrapeName(nameUrl) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
@@ -153,13 +154,19 @@ async function getRecipeFD(recipeLinks) {
 }
 
 async function runScraper() {
-    const nameLinks = [];
-    for (const scrapingSource of SCRAPING_LIST.slice(2, 1)) {
-        const { url, linkSelector, options } = scrapingSource;
-        const { linkSuffix, suffixList } = options;
+    for (const scrapingSource of SCRAPING_LIST) {
+        const nameLinks = [];
+        const {
+            url,
+            linkSelector,
+            options,
+            options: { linkSuffix, suffixList },
+        } = scrapingSource;
+        console.log('Scraping', url);
+        // console.log(linkSelector, linkSuffix, suffixList, options);
         if (linkSuffix) {
             for (const suffix of suffixList) {
-                console.log(`Scraping ${url + linkSuffix + suffix}`);
+                // console.log(`Scraping ${url + linkSuffix + suffix}`);
                 nameLinks.push(
                     ...(await scrapeLinks(
                         url + linkSuffix + suffix,
@@ -171,17 +178,19 @@ async function runScraper() {
         } else {
             nameLinks.push(...(await scrapeLinks(url, linkSelector, options)));
         }
+
+        NameUrlLinks.create(
+            { sourceUrl: url, links: nameLinks },
+            (err, data) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('data saved');
+                }
+            }
+        );
         // console.log(nameLinks);
     }
-    console.log(nameLinks);
-
-    // NameUrlLinks.create({ sourceUrl: url, links: nameLinks }, (err, data) => {
-    //     if (err) {
-    //         console.log();
-    //     } else {
-    //         console.log('data saved');
-    //     }
-    // });
 }
 
 // runScraper();
