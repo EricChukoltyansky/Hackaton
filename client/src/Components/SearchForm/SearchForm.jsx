@@ -6,6 +6,7 @@ import "./SearchForm.css";
 import myApi from "../../Api/Api";
 import { motion } from "framer-motion";
 import { searchFormVariants } from "../../Utils/animations/animations";
+import Suggested from "./Suggested";
 
 export default function SearchForm({ setResults }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -77,47 +78,53 @@ export default function SearchForm({ setResults }) {
   };
 
   return (
-    <motion.div
-      className="search-div"
-      variant={searchFormVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover="hover"
-    >
-      <div className="search-options">
-        <div className="inputsButtons">
-          <div className="flex-center">
-            <InputField
-              type="text"
-              name={"search-input"}
-              placeholder={"הכניסו מילת חיפוש"}
-              onChange={handleChange}
-              value={searchTerm}
-            />
-            <RadioButtons onChangeRadio={onChangeRadio} />
+    <>
+      <motion.div
+        className="search-div"
+        variant={searchFormVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+      >
+        <div className="search-options">
+          <div className="inputsButtons">
+            <div className="flex-center">
+              <InputField
+                type="text"
+                name={"search-input"}
+                placeholder={"הכניסו מילת חיפוש"}
+                onChange={handleChange}
+                value={searchTerm}
+              />
+              <RadioButtons onChangeRadio={onChangeRadio} />
+            </div>
+            <div className="buttons-div">
+              <Button
+                className={"search-button"}
+                name={"חפש לפי משמעות"}
+                callback={searchByMeaning}
+              />
+              <Button
+                className={"search-button"}
+                name={"חיפוש שם"}
+                callback={searchByName}
+              />
+            </div>
           </div>
-          <div className="buttons-div">
+          <div className="random-div">
             <Button
-              className={"search-button"}
-              name={"חפש לפי משמעות"}
-              callback={searchByMeaning}
-            />
-            <Button
-              className={"search-button"}
-              name={"חיפוש שם"}
-              callback={searchByName}
+              className={"search-button random-button"}
+              name={"שם אקראי"}
+              callback={getRandomName}
             />
           </div>
         </div>
-        <div className="random-div">
-          <Button
-            className={"search-button random-button"}
-            name={"שם אקראי"}
-            callback={getRandomName}
-          />
-        </div>
-      </div>
-      <div className="usermessage">{userMessage}</div>
-    </motion.div>
+        <div className="usermessage">{userMessage}</div>
+      </motion.div>
+      <Suggested
+        setSearchTerm={setSearchTerm}
+        searchByMeaning={searchByMeaning}
+      />
+    </>
   );
 }

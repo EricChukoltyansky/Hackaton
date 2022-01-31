@@ -73,3 +73,7 @@
   color: #ff6b6b;
   font-weight: bold;
 }
+
+.suggested {
+  display: block;
+}
