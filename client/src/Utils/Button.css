@@ -5,12 +5,15 @@ button.icon-button {
   font-size: x-large;
   transition: 300ms ease-in-out;
   margin-bottom: 10px;
+  border-radius: 30%;
 }
 
 button.icon-button:hover {
   color: #4ecdc4;
   cursor: pointer;
   transform: scale(1.1);
+  background: rgba(255, 32, 32, 0.51);
+
 }
 
 .search-button {
