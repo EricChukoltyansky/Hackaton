@@ -1,5 +1,4 @@
 {
-
   "name": "hackaton",
   "version": "1.0.0",
   "description": "Bootcamp Hackaton January 2022",
@@ -37,5 +36,4 @@
   "devDependencies": {
     "env-cmd": "^10.1.0"
   }
-
 }
