@@ -67,7 +67,7 @@ function Card({ nameCard }) {
       <div className="head-flex">
         <h3> {nameCard.name}</h3>
         <h3> {nameCard.englishSpelling}</h3>
-        <h3> اسم {nameCard.arabicSpelling}</h3>
+        <h3> {nameCard.arabicSpelling}</h3>
       </div>
 
       <div className="detailsContainer">
