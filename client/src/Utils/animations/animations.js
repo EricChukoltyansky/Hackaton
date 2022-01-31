@@ -30,10 +30,15 @@ export const searchFormVariants = {
         transition: {
             delay:0.8 , duration : 1.5
         },
+
         // exit:{
         //     x:'-100vw',
         //     transition:{ ease: 'easeInOut'}
         // }
+    },
+    hover:{
+        y:30,
+        opacity:0.6
     }
 }
 
@@ -81,6 +86,18 @@ export const searchResultsVariants = {
         y:0,
         transition: {
             duration : 1, ease:"easeInOut" , mass:12 ,
+            damping:2
+        },
+    }
+}
+export const radioButtonsVariants = {
+    hidden :{
+        opacity:0,
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration : 2.5, ease:"easeInOut" , mass:12 ,
             damping:2
         },
     }

@@ -1,4 +1,7 @@
 .results-div {
-    margin: 10px 10px;
+    display: flex;
+    flex-direction: column;
+
     padding-bottom: 10%;
+    padding-right: 10%;
 }

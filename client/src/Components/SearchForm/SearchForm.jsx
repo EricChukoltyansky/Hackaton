@@ -83,6 +83,7 @@ export default function SearchForm({setResults}) {
         variant={searchFormVariants}
         initial='hidden'
         animate='visible'
+        whileHover='hover'
         >
             {/*<div className="search-title">*/}
             {/*    <h2>חיפוש שם</h2>*/}
