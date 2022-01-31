@@ -9,19 +9,12 @@ const getAllNames = async (__, res) => {
     }
 };
 
-//
-// query: {
-//     searchTerm: '',//word in meaning
-//     genderMale: true,//boolean
-//     genderFemale: true,//boolean
-// }
 const getQueriedNames = async (req, res) => {
     try {
         const { genderMale, genderFemale } = req.query;
         const searchTerm = decodeURI(req.query.searchTerm);
         console.log(searchTerm);
 
-        // { meaningKeywords: searchTerm },
         const queryArray = [{ meaning: { $regex: searchTerm, $options: 'i' } }];
         if (genderMale) {
             queryArray.push({ genderMale: genderMale });
@@ -48,10 +41,6 @@ exports.getNames = async (req, res) => {
     }
 };
 
-// query: {
-//     genderMale: true,//boolean
-//     genderFemale: true,//boolean
-// }
 exports.getRandomName = async (req, res) => {
     try {
         const { genderMale, genderFemale } = req.query;
@@ -68,6 +57,20 @@ exports.getRandomName = async (req, res) => {
         console.log('random names:', names.length);
         const randomIndex = Math.floor(Math.random() * names.length);
         res.send(names[randomIndex]);
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+};
+
+exports.getAutoCompleteNames = async (req, res) => {
+    try {
+        const searchTerm = decodeURI(req.query.searchTerm);
+        console.log('getAutoCompleteNames: ', searchTerm);
+
+        const regex = new RegExp('^' + searchTerm, 'i');
+        const names = await NameModel.where({ name: regex }).limit(10).exec();
+        const onlyNames = names.map((name) => name.name);
+        res.send(onlyNames);
     } catch (e) {
         res.status(500).send(e.message);
     }
