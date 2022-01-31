@@ -7,7 +7,19 @@ This project was developed during a 24-hour hackathon during appleseeds bootcamp
 ## Presentation: 
 https://docs.google.com/presentation/d/10ePjtpnt-FA4Oi3g33oGfUPGc0TQ3TsT4xMY4BebUK8/edit?usp=sharing
 
+## Main functions
+- Get names by meaning
+- Get name by name search
+- Get random name
+- Search from recent searches (currently hard-coded)
+- 
+## TODOs
+- User can save favorite names using heart button (saved in local storage)
+- User can see all saved names in favorites page
+- User can share specific name using share button
+
 ## Name Object
+For improved search performance, meaning was parsed into a keywords array (meaningKeywords).
 
 | Property        | Type      | Description                                        | Visible on Request |
 | --------------- | --------- | -------------------------------------------------- | ------------------ |
@@ -21,9 +33,6 @@ https://docs.google.com/presentation/d/10ePjtpnt-FA4Oi3g33oGfUPGc0TQ3TsT4xMY4Beb
 | arabicSpelling  | `String`  | <p>Name spelling in arabic(optional)</p>           | True               |
 | englishSpelling | `String`  | <p>Name spelling in english(optional)</p>          | True               |
 
-## **Get all names**
-
-Returns json data about a single user.
 
 - **URL**
 
@@ -47,9 +56,6 @@ Returns json data about a single user.
 
   `name=[string]`
 
-- **Data Params**
-
-  None
 
 - **Success Response:**
 
