@@ -4,6 +4,7 @@ const {
     MALE_KEYWORDS,
     FEMALE_KEYWORDS,
     SCRAPING_LIST_READY_LINKS,
+    ARABIC_MALE_NAME_INDICES,
 } = require('./constants');
 const NameUrlLinks = require('../models/name-url-link.model');
 const Name = require('../models/name.model');
@@ -223,7 +224,6 @@ async function scrapeBabyNamesUrl(nameUrl) {
 }
 
 async function scrapeArabicNamesUrl(nameUrl) {
-    // console.log('scraping', nameUrl);
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
@@ -261,77 +261,7 @@ async function scrapeArabicNamesUrl(nameUrl) {
             const englishSpelling = englishSpellings[i];
             const arabicSpelling = arabicSpellings[i];
             const meaningKeywords = meaning.split(' ');
-            const genderMale = [
-                1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 23, 24,
-                25, 32, 34, 37, 38,
-            ].includes(i);
-            const genderFemale = !genderMale;
-            namesList.push({
-                name,
-                origin: 'השפה הערבית',
-                meaning,
-                meaningKeywords,
-                genderMale,
-                genderFemale,
-                englishSpelling,
-                arabicSpelling,
-            });
-        }
-        return namesList;
-    } catch (e) {
-        console.error('Error in scrapeBabyNamesUrl', e.message);
-    } finally {
-        await browser.close();
-    }
-    return [];
-}
-
-async function scrapeEthiopianNamesUrl(nameUrl) {
-    // console.log('scraping', nameUrl);
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
-    try {
-        const page = await browser.newPage();
-        const nameSelector = '#container div.result > div.arb.keter';
-        const meaningSelector = '#container div.result > div.heb > a';
-        const englishSpellingSelector = '#container div.result > div.eng';
-        const arabicSpellingSelector = '#container div.result > div.arb.harm';
-        const femaleKey = 'לנקבה';
-        const maleKey = 'לזכר';
-
-        await page.goto(nameUrl);
-        console.log('Page loaded', nameUrl);
-
-        await page.waitForSelector('title', { timeout: 5000 }); //indicates the page has loaded
-        const names = await page.$eval(
-            nameSelector,
-            (elem) => elem.textContent
-        );
-        const meanings = await page.$eval(
-            meaningSelector,
-            (elem) => elem.textContent
-        );
-        const englishSpellings = await page.$eval(
-            englishSpellingSelector,
-            (elem) => elem.textContent
-        );
-        const arabicSpellings = await page.$eval(
-            arabicSpellingSelector,
-            (elem) => elem.textContent
-        );
-
-        const namesList = [];
-        for (let i = 0; i < names.length; i++) {
-            const name = names[i];
-            const meaning = meanings[i];
-            const englishSpelling = englishSpellings[i];
-            const arabicSpelling = arabicSpellings[i];
-            const meaningKeywords = meaning.split(' ');
-            const genderMale = [
-                1, 2, 3, 4, 5, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 23, 24,
-                25, 32, 34, 37, 38,
-            ].includes(i);
+            const genderMale = ARABIC_MALE_NAME_INDICES.includes(i);
             const genderFemale = !genderMale;
             namesList.push({
                 name,
@@ -422,16 +352,16 @@ async function scrapeAndSaveArabicNames() {
 }
 
 async function runScraper() {
-    // await scrapeAndSaveNamesUrls();
-    // const nameUrlLinks = await NameUrlLinks.find();
-    // for (const nameUrlLink of nameUrlLinks) {
-    //     if (nameUrlLink.sourceUrl.includes('baby-names')) {
-    //         for (const nameUrl of nameUrlLink.links) {
-    //             await scrapeAndSaveName(nameUrl);
-    //         }
-    //     }
-    // }
-    // await scrapeAndSaveArabicNames();
+    await scrapeAndSaveNamesUrls();
+    const nameUrlLinks = await NameUrlLinks.find();
+    for (const nameUrlLink of nameUrlLinks) {
+        if (nameUrlLink.sourceUrl.includes('baby-names')) {
+            for (const nameUrl of nameUrlLink.links) {
+                await scrapeAndSaveName(nameUrl);
+            }
+        }
+    }
+    await scrapeAndSaveArabicNames();
 }
 
 module.exports = { runScraper };
