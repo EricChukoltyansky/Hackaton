@@ -120,11 +120,12 @@ export default function SearchForm({ setResults }) {
           </div>
         </div>
         <div className="usermessage">{userMessage}</div>
+        <Suggested
+            setSearchTerm={setSearchTerm}
+            searchByMeaning={searchByMeaning}
+        />
       </motion.div>
-      <Suggested
-        setSearchTerm={setSearchTerm}
-        searchByMeaning={searchByMeaning}
-      />
+
     </>
   );
 }
