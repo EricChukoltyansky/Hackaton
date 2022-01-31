@@ -12,7 +12,8 @@ import {searchFormVariants} from "../../Utils/animations/animations";
 export default function SearchForm({setResults}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [gender,setGender] = useState([true,false]);
-    const[toggleRenderPage,setToggleRenderPage]=useState(false)
+
+
 
 
     const searchByMeaning = async () => {
