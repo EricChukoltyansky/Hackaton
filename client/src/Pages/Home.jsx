@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import {
   titleVariants,
   searchFormVariants,
+    explainVariants
 } from "../Utils/animations/animations";
 
 export default function Home({ setResults }) {
@@ -25,6 +26,10 @@ export default function Home({ setResults }) {
         <motion.h1 variants={titleVariants} initial="hidden" animate="visible">
           ...Name After
         </motion.h1>
+        <motion.div variants={explainVariants} initial="hidden" animate="visible">
+              <p>פה תוכלו לחפש שמות ממגוון מקורות ותרבויות לפי משמעות השם</p>
+            <p>תוכלו גם לגלות משמעויות חדשות לשמות שאתם כבר מכירים</p>
+          </motion.div>
       </div>
     </div>
   );

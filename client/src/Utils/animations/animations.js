@@ -1,21 +1,39 @@
 export const titleVariants = {
     hidden :{
         opacity:0,
-        x:-10,
-        y:10,
+        x:10,
+        y:50,
     },
     visible: {
         x:0,
         y:0,
         scale:1.1,
-        opacity: 1,
+        opacity: [1,1,0.3,0.1,0],
         transition: {
-             duration : 1.5
+             duration : 5.5
         },
         // exit:{
         //     x:'-100vw',
         //     transition:{ ease: 'easeInOut'}
         // }
+    }
+}
+
+export const explainVariants = {
+    hidden :{
+        opacity:0,
+        // y:-20
+        y:30,
+    },
+    visible: {
+        // y:-50,
+        y:20,
+        opacity: 1,
+        fontsize:10,
+        transition: {
+            duration : 2.5, ease:"easeInOut" , mass:12 ,
+            damping:2, delay:3
+        },
     }
 }
 
@@ -83,7 +101,7 @@ export const searchResultsVariants = {
     },
     visible: {
         opacity: 1,
-        y:0,
+        y:-150,
         transition: {
             duration : 1, ease:"easeInOut" , mass:12 ,
             damping:2
