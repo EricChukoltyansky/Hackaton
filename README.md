@@ -4,7 +4,8 @@ This project was developed during a 24-hour hackathon during appleseeds bootcamp
 
 ## Live version: https://nameafter.herokuapp.com/
 
-## Presentation: https://docs.google.com/presentation/d/10ePjtpnt-FA4Oi3g33oGfUPGc0TQ3TsT4xMY4BebUK8/edit?usp=sharing
+## Presentation: 
+https://docs.google.com/presentation/d/10ePjtpnt-FA4Oi3g33oGfUPGc0TQ3TsT4xMY4BebUK8/edit?usp=sharing
 
 ## Name Object
 
