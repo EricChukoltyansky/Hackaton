@@ -7,9 +7,7 @@ import  {titleVariants,searchFormVariants,NavBarVariants} from "../Utils/animati
 
 export default function Home({setResults}) {
 
-
     return(
-
           <div className='homePage'>
                   <NavBar />
 

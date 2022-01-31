@@ -15,20 +15,30 @@ export default function SearchForm({setResults}) {
 
     const searchByMeaning = async () => {
         try {
-        console.log("in search by meaning");
-        //const data = fetch
-        setResults(names);
-        setSearchTerm("");
+            if(searchTerm.length>0) {
+                const [genderMale, genderFemale] = gender
+                console.log(genderMale, genderFemale)
+                // const {data} = await myApi.get('https://nameafter.herokuapp.com/api/v1/names?searchTerm=%D7%94%D7%95%D7%A8%D7%94&genderMale=true&genderFemale=false')
+                const {data} = await myApi.get(`https://nameafter.herokuapp.com/api/v1/names?searchTerm=${searchTerm}&genderMale=${genderMale}&genderFemale=${genderFemale}`)
+                console.log("in search by meaning,", data);
+                // setResults(names);
+                // if(searchTerm.length===1)setResults([data])
+                setResults([data]);
+                // setSearchTerm("");
+            }
         } catch(e) {
-            console.log(e.message)
+            console.log(e.message);
         }
     }
     const searchByName = async () => {
         try {
-            console.log("in search by name");
-            // const data = fetch
-            //setResults(data)
-            setSearchTerm("");
+            if(searchTerm.length>0) {
+                const {data} = await myApi.get(`/v1/names/${searchTerm}`)
+                console.log("in search by name22", data);
+                // const data = fetch
+                setResults([data]);
+                // setSearchTerm("");
+            }
         }catch(e) {
             console.log(e.message)
         }
