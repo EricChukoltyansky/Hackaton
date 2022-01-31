@@ -78,3 +78,7 @@
   display: block;
   text-align: center;
 }
+
+.suggested button:hover {
+  cursor: pointer;
+}
