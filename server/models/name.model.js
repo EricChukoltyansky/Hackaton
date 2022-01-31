@@ -19,7 +19,6 @@ const nameSchema = new mongoose.Schema({
     meaningKeywords: [
         {
             type: String,
-            required: true,
             trim: true,
         },
     ],

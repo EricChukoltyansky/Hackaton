@@ -55,10 +55,17 @@ exports.getNames = async (req, res) => {
 exports.getRandomName = async (req, res) => {
     try {
         const { genderMale, genderFemale } = req.query;
+        const queryArray = [];
+        if (genderMale) {
+            queryArray.push({ genderMale: genderMale });
+        }
+        if (genderFemale) {
+            queryArray.push({ genderFemale: genderFemale });
+        }
         const names = await NameModel.find({
-            genderMale: genderMale,
-            genderFemale: genderFemale,
+            $and: queryArray,
         });
+        console.log('random names:', names.length);
         const randomIndex = Math.floor(Math.random() * names.length);
         res.send(names[randomIndex]);
     } catch (e) {
