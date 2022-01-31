@@ -40,6 +40,12 @@ const nameSchema = new mongoose.Schema({
     },
 });
 
+nameSchema.methods.toJSON = function () {
+    const nameObject = this.toObject();
+    delete nameObject.meaningKeywords;
+    return nameObject;
+};
+
 const Name = mongoose.model('Name', nameSchema);
 
 module.exports = Name;
