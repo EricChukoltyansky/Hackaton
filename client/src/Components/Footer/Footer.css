@@ -7,13 +7,14 @@ footer {
     align-items: center;
     /*flex-direction: column;*/
     gap:20px;
-    background:#1A535C;
+    background: rgba(26, 83, 92, 0.89);
     color:#F7FFF7;
     position:fixed;
     bottom:0;
     padding:1rem;
     font-family: 'Amatic SC', cursive;
     letter-spacing: 2px;
+    z-index: 100;
 }
 
 footer h2 {

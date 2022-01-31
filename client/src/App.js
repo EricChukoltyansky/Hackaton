@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Home from "./Pages/Home";
 import ResultsPage from "./Pages/ResultsPage";
 import './App.css'
@@ -8,6 +8,8 @@ import NavBar from "./Components/Navbar/Navbar";
 
 function App() {
   const [results, setResults] = useState([]);
+
+
 
   return (
     <div className='App'>

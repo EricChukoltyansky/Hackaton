@@ -7,13 +7,18 @@
 }
 
 .input:hover {
-    transform: scale(1.1);
+    /*transform: scale(1.1);*/
 }
 
 .input-div {
     display: flex;
     justify-content: center;
     margin:10px 25px;
+    transition: 400ms ease-in-out;
+
+}
+.input-div:hover {
+    transform: scale(1.1);
 }
 
 .search-icon {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import InputField from "../../Utils/InputField";
 import Button from "../../Utils/Button";
 import RadioButtons from "./RadioButtons";
@@ -13,22 +13,34 @@ export default function SearchForm({setResults}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [gender,setGender] = useState([true,false]);
 
+
+
+
     const searchByMeaning = async () => {
         try {
-        console.log("in search by meaning");
-        //const data = fetch
-        setResults(names);
-        setSearchTerm("");
+            if(searchTerm.length>0) {
+                const genderMale = gender[0];
+                const genderFemale = gender[1];
+                console.log(searchTerm)
+                // const {data} = await myApi.get('https://nameafter.herokuapp.com/api/v1/names?searchTerm=%D7%94%D7%95%D7%A8%D7%94&genderMale=true&genderFemale=false')
+                const {data} = await myApi.get(`https://nameafter.herokuapp.com/api/v1/names?searchTerm=${searchTerm}&genderMale=${genderMale}&genderFemale=${genderFemale}`)
+                // setResults(names);
+                // if(searchTerm.length===1)setResults([data])
+                if(data) setResults(data);
+            }
         } catch(e) {
-            console.log(e.message)
+            console.log(e.message);
         }
     }
     const searchByName = async () => {
         try {
-            console.log("in search by name");
-            // const data = fetch
-            //setResults(data)
-            setSearchTerm("");
+            if(searchTerm.length>0) {
+                const {data} = await myApi.get(`/v1/names/${searchTerm}`)
+                if(data) {
+                    setResults([data]);
+                }
+                // setSearchTerm("");
+            }
         }catch(e) {
             console.log(e.message)
         }
@@ -36,10 +48,13 @@ export default function SearchForm({setResults}) {
 
     const getRandomName = async () => {
         try {
-            console.log("in get random name");
+        if(searchTerm.length>0) {
+           const {data}= await myApi.get('http://localhost:5000/api/v1/names?genderMale=false&genderFemale=true')
+                console.log("in get random name");
             // const data = fetch
-            //setResults(data)
+            setResults([data])
             setSearchTerm("");
+        }
         }catch(e) {
 
         }
@@ -50,8 +65,9 @@ export default function SearchForm({setResults}) {
     }
 
     const onChangeRadio =(e) => {
-        console.log(e.target.value);
-        setGender(e.target.value);
+        // console.log('radio',e.target.value);
+        console.log('test',e.target.value.split(','))
+        setGender(e.target.value.split(','));
       }
 
     return(
@@ -59,6 +75,7 @@ export default function SearchForm({setResults}) {
         variant={searchFormVariants}
         initial='hidden'
         animate='visible'
+        whileHover='hover'
         >
             {/*<div className="search-title">*/}
             {/*    <h2>חיפוש שם</h2>*/}
