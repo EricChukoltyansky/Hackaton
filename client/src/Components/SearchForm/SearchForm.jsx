@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import InputField from "../../Utils/InputField";
 import Button from "../../Utils/Button";
 import RadioButtons from "./RadioButtons";
@@ -12,14 +12,17 @@ import {searchFormVariants} from "../../Utils/animations/animations";
 export default function SearchForm({setResults}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [gender,setGender] = useState([true,false]);
+    const[toggleRenderPage,setToggleRenderPage]=useState(false)
+
 
     const searchByMeaning = async () => {
         try {
+            // console.log('ffff',gender[0],gender[1], gender)
             if(searchTerm.length>0) {
                 const genderMale = gender[0];
                 const genderFemale = gender[1];
-                console.log('hh',genderMale.toString())
-                console.log(genderMale, genderFemale)
+                // console.log('hh',genderMale.toString())
+                // console.log('genders',genderMale, genderFemale)
                 console.log(searchTerm)
                 // const {data} = await myApi.get('https://nameafter.herokuapp.com/api/v1/names?searchTerm=%D7%94%D7%95%D7%A8%D7%94&genderMale=true&genderFemale=false')
                 const {data} = await myApi.get(`https://nameafter.herokuapp.com/api/v1/names?searchTerm=${searchTerm}&genderMale=${genderMale}&genderFemale=${genderFemale}`)
@@ -27,19 +30,23 @@ export default function SearchForm({setResults}) {
                 // setResults(names);
                 // if(searchTerm.length===1)setResults([data])
                 if(data) setResults(data);
+
                 // setSearchTerm("");
             }
         } catch(e) {
-            console.log(e);
+            console.log(e.message);
         }
     }
     const searchByName = async () => {
         try {
+
             if(searchTerm.length>0) {
                 const {data} = await myApi.get(`/v1/names/${searchTerm}`)
-                console.log("in search by name22", data);
+                // console.log("in search by name22", data);
                 // const data = fetch
-                setResults([data]);
+                if(data) {
+                    setResults([data]);
+                }
                 // setSearchTerm("");
             }
         }catch(e) {
@@ -49,10 +56,13 @@ export default function SearchForm({setResults}) {
 
     const getRandomName = async () => {
         try {
-            console.log("in get random name");
+        if(searchTerm.length>0) {
+           const {data}= await myApi.get('http://localhost:5000/api/v1/names?genderMale=false&genderFemale=true')
+                console.log("in get random name");
             // const data = fetch
-            //setResults(data)
+            setResults([data])
             setSearchTerm("");
+        }
         }catch(e) {
 
         }
@@ -63,8 +73,9 @@ export default function SearchForm({setResults}) {
     }
 
     const onChangeRadio =(e) => {
-        console.log(e.target.value);
-        setGender(e.target.value);
+        // console.log('radio',e.target.value);
+        console.log('test',e.target.value.split(','))
+        setGender(e.target.value.split(','));
       }
 
     return(

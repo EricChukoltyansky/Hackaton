@@ -1,8 +1,13 @@
 export const titleVariants = {
     hidden :{
         opacity:0,
+        x:-10,
+        y:10,
     },
     visible: {
+        x:0,
+        y:0,
+        scale:1.1,
         opacity: 1,
         transition: {
              duration : 1.5
@@ -21,7 +26,7 @@ export const searchFormVariants = {
     },
     visible: {
         opacity: 1,
-        y:0,
+        y:10,
         transition: {
             delay:0.8 , duration : 1.5
         },
@@ -42,7 +47,7 @@ export const NavBarVariants = {
         y:0,
         transition: {
             duration : 1, ease:"easeInOut" , mass:0.4,
-            damping:8
+            damping:8, delay:0.8
         },
         // exit:{
         //     x:'-100vw',
