@@ -28,11 +28,19 @@
     transform: scale(1.1);
     cursor: pointer;
 }
+.logo {
+    font-family: 'Amatic SC', cursive;
+    font-size: calc(15px + 1vmin);
+    font-weight: 800;
+}
 .logo i {
+    font-family: 'Amatic SC', cursive;
     font-size: calc(30px + 1vmin);
     transition:500ms ease-in-out;
+    font-weight: 800;
+    letter-spacing: 5px;
 }
 
 .logo i:hover {
-    transform: rotate(-20deg) scale(1.2)
+    transform: rotate(-2deg) scale(1.2)
 }

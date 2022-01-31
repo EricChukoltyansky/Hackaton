@@ -13,7 +13,7 @@ export default function  Footer() {
         animate='visible'
         >
             <h3> <span>&#169;</span>  2022</h3>
-            <p>-------- ● ---------- </p>
+            <p>-------- ● -------- </p>
             <h2>Name After</h2>
         </motion.footer>
     )
