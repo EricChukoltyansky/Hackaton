@@ -7,11 +7,8 @@ app.listen(port, () => {
     console.log('Server is up on port ' + port);
 });
 
-runScraper();
-
-// const rule = new schedule.RecurrenceRule();
-// rule.hour = 10;
-// rule.dayOfWeek = 2;
-// rule.tz = 'Etc/UTC'; //this will execute the job at 10:00 UTC every Tuesday
-// schedule.scheduleJob(rule, runScraper);
-
+const rule = new schedule.RecurrenceRule();
+rule.hour = 4;
+rule.dayOfWeek = 0;
+rule.tz = 'Etc/UTC'; //this will execute the job at 04:00 UTC every Sunday
+schedule.scheduleJob(rule, runScraper);
