@@ -88,6 +88,7 @@ export const searchResultsVariants = {
             duration : 1, ease:"easeInOut" , mass:12 ,
             damping:2
         },
+
     }
 }
 export const radioButtonsVariants = {

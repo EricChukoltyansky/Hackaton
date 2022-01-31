@@ -9,7 +9,7 @@ import NavBar from "./Components/Navbar/Navbar";
 function App() {
   const [results, setResults] = useState([]);
 
-  // useEffect(())
+
 
   return (
     <div className='App'>
