@@ -15,9 +15,8 @@ code {
 
 .link-button {
   background: transparent;
-  color: #333;
+  color: #4ecdc4;
   text-decoration: underline;
-  text-decoration-color: #ff6b6b;
   outline: none;
   border: none;
   transition: 300ms ease-in-out;

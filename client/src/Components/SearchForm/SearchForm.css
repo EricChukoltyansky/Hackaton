@@ -1,71 +1,80 @@
 .search-div {
-    width:80%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border:1px solid grey;
-    padding: 1rem 2rem;
-    border-bottom-left-radius:10px;
-    border-bottom-right-radius:10px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px, rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
-    transform: translateY(-10px);
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid grey;
+  padding: 1rem 2rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+  transform: translateY(-10px);
 }
 
 .search-title {
-    width:100%;
-    border-bottom:grey dotted 1px;
+  width: 100%;
+  border-bottom: grey dotted 1px;
 }
-
 
 .search-div h2 {
-    width:100%;
-    color: #1A535C;
-    margin:5px;
-    letter-spacing: 3px;
-    font-size: calc(20px + 2vmin);
+  width: 100%;
+  color: #1a535c;
+  margin: 5px;
+  letter-spacing: 3px;
+  font-size: calc(20px + 2vmin);
 
-    text-align: center;
-    line-height: 2.5;
+  text-align: center;
+  line-height: 2.5;
 }
 .search-options {
-    display: flex;
-    width:100%;
-    height:fit-content;
-    justify-content: space-around;
-    align-items: center;
-    gap:2rem;
-    padding:1rem 2rem;
-    border-bottom: grey 1px dotted;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  border-bottom: grey 1px dotted;
 }
 
 .inputsButtons {
-    width:50%;
-    /*border-left: 1px dotted grey;*/
-    padding-left:1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
+  width: 50%;
+  /*border-left: 1px dotted grey;*/
+  padding-left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .buttons-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap:1.5rem;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
 }
 .random-div {
-    border-right: 1px dotted grey;
-    padding-right:1rem;
-    height:100%;
+  border-right: 1px dotted grey;
+  padding-right: 1rem;
+  height: 100%;
 }
 
 @media only screen and (max-width: 1000px) {
-    .search-options {
-        flex-direction: column;
-    }
+  .search-options {
+    flex-direction: column;
+  }
+}
+
+.usermessage {
+  margin-top: 15px;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.suggested {
+  display: block;
+  text-align: center;
 }

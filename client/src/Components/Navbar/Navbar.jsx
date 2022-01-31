@@ -17,17 +17,16 @@ export default function NavBar() {
 
             </li>
             <li>
-                הבית
+                • הבית
             </li>
             <li>
-                אודות
+                • אודות
             </li>
             <li>
-                מועדפים
+                • מועדפים
             </li>
             <div className="logo">
-
-                <i className="fas fa-signature"> </i>
+                <i className=""> Name After  </i>
             </div>
         </ul>
          </div>

@@ -19,6 +19,21 @@
     gap:10px;
 }
 
+.heading {
+    width:100%;
+    height:fit-content;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Amatic SC', cursive;
+}
+.heading p {
+    font-size: calc(20px + 2vmin);
+    letter-spacing: 5px;
+    font-weight: bold;
+}
+
 .heading h1 {
     color:#1A535C;
     font-size: calc(45px + 10vmin);
