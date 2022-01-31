@@ -1,4 +1,10 @@
-# bank-api-nodejs
+## Name After: An app for finding the commonalities in our name meanings
+
+This project was developed during a 24-hour hackathon during appleseeds bootcamp, in collaboration with https://dialogtogether.com/
+
+## Live version: https://nameafter.herokuapp.com/
+
+## Presentation: https://docs.google.com/presentation/d/10ePjtpnt-FA4Oi3g33oGfUPGc0TQ3TsT4xMY4BebUK8/edit?usp=sharing
 
 ## Name Object
 
@@ -18,38 +24,38 @@
 
 Returns json data about a single user.
 
--   **URL**
+- **URL**
 
-    /api/v1/names/
+  /api/v1/names/
 
 ## **Get Name **
 
 Returns json data about a single user.
 
--   **URL**
+- **URL**
 
-    /api/v1/names/:name
+  /api/v1/names/:name
 
--   **Method:**
+- **Method:**
 
-    `GET`
+  `GET`
 
--   **URL Params**
+- **URL Params**
 
-    **Required:**
+  **Required:**
 
-    `name=[string]`
+  `name=[string]`
 
--   **Data Params**
+- **Data Params**
 
-    None
+  None
 
--   **Success Response:**
+- **Success Response:**
 
-    -   **Code:** 200 <br />
-        **Content:** `{ id : 12, name : "מיכאל", origin : "עברית", meaning : "...", arabicSpelling : "...", englishSpelling : "Michael" }`
+  - **Code:** 200 <br />
+    **Content:** `{ id : 12, name : "מיכאל", origin : "עברית", meaning : "...", arabicSpelling : "...", englishSpelling : "Michael" }`
 
--   **Error Response:**
+- **Error Response:**
 
-    -   **Code:** 404 NOT FOUND <br />
-        **Content:** `{ error : "Name doesn't exist" }`
+  - **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "Name doesn't exist" }`
