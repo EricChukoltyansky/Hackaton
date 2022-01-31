@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputField from "../../Utils/InputField";
 import Button from "../../Utils/Button";
 import RadioButtons from "./RadioButtons";
 import "./SearchForm.css";
-import names from "../../Api/mockData";
 import myApi from "../../Api/Api";
 import { motion } from "framer-motion";
 import { searchFormVariants } from "../../Utils/animations/animations";

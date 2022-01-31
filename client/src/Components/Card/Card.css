@@ -6,7 +6,7 @@
   min-width: 300px;
   max-width: 800px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  animation:cardAnimation 500ms ease-in forwards;
+  animation: cardAnimation 500ms ease-in forwards;
 }
 
 .detailsContainer {
@@ -45,8 +45,11 @@
   from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 1;
   }
+}
 
+.origin {
+  width: 20%;
 }

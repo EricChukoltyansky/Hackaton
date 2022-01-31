@@ -4,13 +4,15 @@ import Button from "../../Utils/Button";
 import { useState } from "react";
 
 function Card({ nameCard }) {
-  const textLength = 150;
+  const meaningLength = 150;
+  //const originLength = 70;
 
-  const [showFull, setShowFull] = useState(false);
+  const [showFullMeaning, setShowFullMeaning] = useState(false);
+  //const [showFullOrigin, setShowFullOrigin] = useState(false);
 
   const renderMeaning = () => {
-    if (nameCard.meaning.length > textLength) {
-      switch (showFull) {
+    if (nameCard.meaning.length > meaningLength) {
+      switch (showFullMeaning) {
         case true:
           return (
             <div className="meaning">
@@ -18,7 +20,7 @@ function Card({ nameCard }) {
               &nbsp; &nbsp;{" "}
               <button
                 className="link-button"
-                onClick={() => setShowFull(false)}
+                onClick={() => setShowFullMeaning(false)}
               >
                 לראות פחות{" "}
               </button>{" "}
@@ -28,9 +30,12 @@ function Card({ nameCard }) {
         case false:
           return (
             <div className="meaning">
-              {nameCard.meaning.slice(0, textLength)}
+              {nameCard.meaning.slice(0, meaningLength)}
               &nbsp; &nbsp;{" "}
-              <button className="link-button" onClick={() => setShowFull(true)}>
+              <button
+                className="link-button"
+                onClick={() => setShowFullMeaning(true)}
+              >
                 להמשך קריאה
               </button>
             </div>
@@ -43,6 +48,45 @@ function Card({ nameCard }) {
       return <div className="meaning">{nameCard.meaning}</div>;
     }
   };
+
+  // const renderOrigin = () => {
+  //   if (nameCard.origin.length > originLength) {
+  //     switch (showFullOrigin) {
+  //       case true:
+  //         return (
+  //           <div className="origin">
+  //             {nameCard.origin}
+
+  //             <button
+  //               className="link-button"
+  //               onClick={() => setShowFullOrigin(false)}
+  //             >
+  //               לראות פחות
+  //             </button>
+  //           </div>
+  //         );
+
+  //       case false:
+  //         return (
+  //           <div className="origin">
+  //             {nameCard.origin.slice(0, originLength)}
+  //             &nbsp; &nbsp;
+  //             <button
+  //               className="link-button"
+  //               onClick={() => setShowFullOrigin(true)}
+  //             >
+  //               להמשך קריאה
+  //             </button>
+  //           </div>
+  //         );
+
+  //       default:
+  //         return <div className="origin">{nameCard.origin}</div>;
+  //     }
+  //   } else {
+  //     return <div className="origin">{nameCard.origin}</div>;
+  //   }
+  // };
 
   const genderIcon = () => {
     if (nameCard.genderFemale) {
