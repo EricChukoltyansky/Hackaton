@@ -54,13 +54,13 @@ export const NavBarVariants = {
 export const footerVariants = {
     hidden :{
         opacity:0,
-        y:220
+        // y:220
     },
     visible: {
         opacity: 1,
-        y:0,
+        // y:0,
         transition: {
-            duration : 1, ease:"easeInOut" , mass:12,delay:0.7,
+            duration : 2, ease:"easeInOut" , mass:12,delay:0.7,
             damping:2
         },
     }
