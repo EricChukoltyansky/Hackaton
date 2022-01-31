@@ -6,7 +6,7 @@ export const titleVariants = {
     },
     visible: {
         x:0,
-        y:0,
+        y:-20,
         scale:1.1,
         opacity: [1,1,0.3,0.1,0],
         transition: {
@@ -23,11 +23,11 @@ export const explainVariants = {
     hidden :{
         opacity:0,
         // y:-20
-        y:30,
+        // y:10,
     },
     visible: {
         // y:-50,
-        y:20,
+        // y:20,
         opacity: 1,
         fontsize:10,
         transition: {
