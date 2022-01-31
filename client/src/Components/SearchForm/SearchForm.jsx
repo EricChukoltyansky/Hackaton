@@ -15,6 +15,7 @@ export default function SearchForm({ setResults }) {
   const searchByMeaning = async () => {
     try {
       if (searchTerm.length > 0) {
+        setUserMessage("בתהליך חיפוש...");
         const genderMale = gender[0];
         const genderFemale = gender[1];
         console.log(searchTerm);
@@ -38,6 +39,7 @@ export default function SearchForm({ setResults }) {
   const searchByName = async () => {
     try {
       if (searchTerm.length > 0) {
+        setUserMessage("בתהליך חיפוש...");
         const { data } = await myApi.get(`/v1/names/${searchTerm}`);
         if (data) {
           setResults([data]);
@@ -53,6 +55,7 @@ export default function SearchForm({ setResults }) {
 
   const getRandomName = async () => {
     try {
+      setUserMessage("בתהליך חיפוש...");
       const { data } = await myApi.get(
         `/v1/names/random?genderMale=${gender[0]}&genderFemale=${gender[1]}`
       );
