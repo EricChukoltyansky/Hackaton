@@ -41,6 +41,9 @@
     line-height: 1.8;
     font-family: 'Amatic SC', cursive;
     margin: 10px;
+    height: fit-content;
+    /*position: absolute;*/
+
 }
 
 .search-animate-div {

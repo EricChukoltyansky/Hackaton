@@ -4,9 +4,10 @@ export const titleVariants = {
         x:10,
         y:50,
     },
+
     visible: {
         x:0,
-        y:-20,
+        y:-30,
         scale:1.1,
         opacity: [1,1,0.3,0.1,0],
         transition: {
@@ -27,7 +28,8 @@ export const explainVariants = {
     },
     visible: {
         // y:-50,
-        // y:20,
+        // y:-20,
+        fontSize:0,
         opacity: 1,
         fontsize:10,
         transition: {
@@ -101,7 +103,7 @@ export const searchResultsVariants = {
     },
     visible: {
         opacity: 1,
-        y:-150,
+        y:-300,
         transition: {
             duration : 1, ease:"easeInOut" , mass:12 ,
             damping:2
